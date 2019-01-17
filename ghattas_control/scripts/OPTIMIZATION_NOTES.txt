@@ -1,0 +1,5 @@
+This is some notes to be considered while optimizing the software system
+
+1- Don't repeat usage of the same classes -> one file and import
+2- merge all same codes in one file with configurable parameters
+3- learn what is nodelete and how to write your own ROS plugin

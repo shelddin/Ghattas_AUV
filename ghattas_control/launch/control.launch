@@ -1,0 +1,18 @@
+<launch>
+  <node name="heading_to_saved" pkg="ghattas_control" type="heading_to_saved.py" output="screen"/>
+  <node name="heading_to" pkg="ghattas_control" type="heading_to.py" output="screen"/>
+  <node name="heave_down_to" pkg="ghattas_control" type="heave_down_to.py" output="screen"/>
+  <node name="heave_down" pkg="ghattas_control" type="heave_down.py" output="screen"/>
+  <node name="heave_up_to" pkg="ghattas_control" type="heave_up_to.py" output="screen"/>
+  <node name="heave_up" pkg="ghattas_control" type="heave_up.py" output="screen"/>
+  <node name="save_heading" pkg="ghattas_control" type="save_heading.py" output="screen"/>
+  <node name="stop_vehicle" pkg="ghattas_control" type="stop_vehicle.py" output="screen"/>
+  <node name="surge_backward_for" pkg="ghattas_control" type="surge_backward_for.py" output="screen"/>
+  <node name="surge_backward" pkg="ghattas_control" type="surge_backward.py" output="screen"/>
+  <node name="surge_forward_for" pkg="ghattas_control" type="surge_forward_for.py" output="screen"/>
+  <node name="surge_forward" pkg="ghattas_control" type="surge_forward.py" output="screen"/>
+  <node name="sway_left_for" pkg="ghattas_control" type="sway_left_for.py" output="screen"/>
+  <node name="sway_left" pkg="ghattas_control" type="sway_left.py" output="screen"/>
+  <node name="sway_right_for" pkg="ghattas_control" type="sway_right_for.py" output="screen"/>
+  <node name="sway_right" pkg="ghattas_control" type="sway_right.py" output="screen"/>
+</launch>

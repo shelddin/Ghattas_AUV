@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="test_service_caller">
+
+	<executable package_path="ghattas_autonomy_flexbe_behaviors.test_service_caller_sm" class="test_service_callerSM" />
+	<tagstring>serviceCaller</tagstring>
+	<author>Shehabeldin</author>
+	<date>Fri Dec 28 2018</date>
+	<description>
+		test to call service using proxy
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

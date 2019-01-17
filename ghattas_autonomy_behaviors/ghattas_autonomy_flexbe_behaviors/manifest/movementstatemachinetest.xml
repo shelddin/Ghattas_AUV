@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="MovementStatemachineTest">
+
+	<executable package_path="ghattas_autonomy_flexbe_behaviors.movementstatemachinetest_sm" class="MovementStatemachineTestSM" />
+	<tagstring></tagstring>
+	<author>ShehabEldin</author>
+	<date>Sun Dec 30 2018</date>
+	<description>
+		This a test state mcahine to ensure the integration between the MovementServiceCaller state and the movement ROS services
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>
