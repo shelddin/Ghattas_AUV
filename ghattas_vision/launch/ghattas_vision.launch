@@ -1,0 +1,6 @@
+<launch>
+
+  <node pkg="ghattas_vision" type="vision_node.py"
+    name="ghattas_vision" output = "screen"></node>
+
+</launch>
