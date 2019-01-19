@@ -13,7 +13,7 @@ class vision_node(object):
 
     def __init__(self):
         rospy.init_node("vision_node")
-        self._stream = cv2.VideoCapture('/home/shehabaldeen/ghattas/src/ghattas_vision/test_media/gate_animation.mkv')
+        self._stream = VideoStream(src='/home/ahmad/catkin_ws/src/ghattas_vision/test_media/gate_animation.mkv').start()
         self._fps = FPS()
         self._target_out=vision_target()
         self._detection_out=vision_task_detection()
@@ -42,9 +42,9 @@ class vision_node(object):
 if __name__ == "__main__":
     vision = vision_node()
     rospy.loginfo(vision._mode_config)
-    vision._stream.set(cv2.CAP_PROP_FPS, 10)
+
     while True:
-        _,vision._frame = vision._stream.read()
+        vision._frame = vision._stream.read()
         vision._drawn = vision._frame
         vision._reset_detection_msg()
 
@@ -52,13 +52,12 @@ if __name__ == "__main__":
             print('video feed is lost :(')
             cv2.waitKey(0)
             break
-        #vision._frame=cv2.resize(vision._frame, (0,0), fx=0.25, fy=0.25)
-        #vision._drawn=cv2.resize(vision._drawn, (0,0), fx=0.25, fy=0.25)
+        vision._frame=cv2.resize(vision._frame, (0,0), fx=0.25, fy=0.25)
+        vision._drawn=cv2.resize(vision._drawn, (0,0), fx=0.25, fy=0.25)
         cycle(vision)
         vision._publish('detection',vision._detection_out)
-        vision._frame=cv2.resize(vision._frame, (0,0), fx=0.5, fy=0.5)
         cv2.imshow('frame',vision._frame)
-#        cv2.imshow('drawn',vision._drawn)
+        cv2.imshow('drawn',vision._drawn)
         vision._fps.update()
         #rospy.sleep(0.05)
 
@@ -67,4 +66,4 @@ if __name__ == "__main__":
             break
 
     cv2.destroyAllWindows()
-    vision._stream.release()
+    vision._stream.stop()
