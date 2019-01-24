@@ -1,5 +1,0 @@
-String mode
-Float64 desired_hdg
----
-Bool success
-Float64 current_hdg
