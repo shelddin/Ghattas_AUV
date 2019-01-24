@@ -1,7 +1,11 @@
 
 # paremeters to configure the control package
-left_rotation_speed: 1450
+left_rotation_speed:  1450
 right_rotation_speed: 1550
-up_speed: 1600
-down_speed: 1400
-pub_rate: 10 # publishin rate for all publishers
+up_speed:             1600
+down_speed:           1400
+forward_speed:        1800
+backward_speed:       1200
+left_sway_speed:      1200
+right_sway_speed:     1800
+pub_rate:             10 # publishin rate for all publishers

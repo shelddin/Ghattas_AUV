@@ -60,6 +60,8 @@ find_package(catkin REQUIRED COMPONENTS
     FILES
     hdg_adv.srv
     depth_adv.srv
+    move.srv
+    dist.srv
 #   Service1.srv
 #   Service2.srv
  )
