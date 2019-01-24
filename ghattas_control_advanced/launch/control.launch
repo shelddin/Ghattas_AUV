@@ -1,0 +1,5 @@
+<launch>
+  <rosparam file="$(find ghattas_control_advanced)/config/parameters.yaml" command="load"/>
+  <node name="heading_control" pkg="ghattas_control_advanced" type="heading_control.py" output="screen"/>
+  <node name="depth_control" pkg="ghattas_control_advanced" type="depth_control.py" output="screen"/>
+</launch>
