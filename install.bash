@@ -22,6 +22,7 @@ sudo apt install htop
 sudo apt install python-pip
 sudo pip2 install --upgrade pip
 sudo pip2 install imutils
+python -m pip install --upgrade --user mss
 sudo apt install cmake python-dev python-numpy
 sudo apt install gcc g++
 sudo apt install python-gtk2-dev
