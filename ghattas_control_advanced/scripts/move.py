@@ -20,20 +20,20 @@ import rospy
 import time
 
 #importing the necessary ROS msgs and srvs
-from std_srvs.srv import Empty, EmptyResponse
+from ghattas_control_advanced.srv import move, moveResponse
 from std_msgs.msg import Float64
 from std_msgs.msg import Bool
 from mavros_msgs.msg import OverrideRCIn
 
 
 # the main class for the service server
-class move(object):
+class mover(object):
     def __init__(self): # constructor
         # publiser object to publish in '/mavros/rc/override' to move the vehicle
         self.rc_publisher = rospy.Publisher('/mavros/rc/override', OverrideRCIn,
                                             queue_size=10)
         # service object to start out service server
-        self.service_server_object = rospy.Service('/autonomous/move', Empty, self.service_callback)
+        self.service_server_object = rospy.Service('/autonomous/move', move, self.service_callback)
 
         # getting all the parameters from the parameter server and stor it in variables
         self.pub_rate = rospy.get_param("pub_rate")
@@ -57,18 +57,20 @@ class move(object):
         speed = {'l':self.left_sway_speed,'r':self.right_sway_speed,'f':self.forward_speed,
                     'b':self.backward_speed,'rl':self.left_rotation_speed,'rr':self.right_rotation_speed,
                     'u':self.up_speed,'d':self.down_speed}
+        loginfo_msg = {'l':"lateral left",'r':"lateral right",'f':"forward",'b':"backward",'rl':"left roatation",
+                        'rr':"right rotation",'u':"depth up",'d':"depth down"}
 
         override_msg = OverrideRCIn() #object of the msg type for the RC
         if req.direction in index: #error catcher to verify a valid direction is sent
             override_msg.channels[index[req.direction]] = speed[req.direction]
             self.rc_publisher.publish(override_msg)
             self.rate.sleep()
-            stopped = self.get_stop_condition()
+            rospy.loginfo("The vehicle started doing a %s",loginfo_msg[req.direction])
             return True
         else: #catching the error
             rospy.logerr("you have endered wrong direction for move service")
 
 if __name__ == '__main__': # main funciton
     rospy.init_node('move_serviceServer') # initiaing a ros node
-    object__ = move() # object of the main class
+    object__ = mover() # object of the main class
     rospy.spin() # to ensure the the code will run inifinitly
