@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import rospy
 import pickle
-from std_msgs.msg import Float32
+from std_msgs.msg import Float64
+from geometry_msgs.msg import Point, PoseStamped
+
 
 current = {'heading':0,
 'x':0,
@@ -17,27 +19,22 @@ def pickle_it():
 
 def heading(msg):
 	global current
+	print('got hdg')
 	current['heading'] = msg.data
 	pickle_it()
-def x(msg):
-	global current
-	current['x'] = msg.data
-	pickle_it()
-def y(msg):
-	global current
-	current['y'] = msg.data
-	pickle_it()
-def z(msg):
-	global current
-	current['z'] = msg.data
-	pickle_it()
 
+def pose(msg):
+	global current
+	print('got pose')
+	current['x'] = msg.pose.position.x
+	current['y'] = msg.pose.position.y
+	current['z'] = msg.pose.position.z+4
+	pickle_it()
 
 rospy.init_node('blender')
-rospy.Subscriber("/heading", Float32, heading)
-rospy.Subscriber("/x", Float32, x)
-rospy.Subscriber("/y", Float32, y)
-rospy.Subscriber("/z", Float32, z)
+rospy.Subscriber("/mavros/global_position/compass_hdg", Float64, heading)
+rospy.Subscriber("/mavros/local_position/pose/", PoseStamped, pose)
 
 
+pickle_it()
 rospy.spin()
