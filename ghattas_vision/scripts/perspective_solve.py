@@ -3,7 +3,7 @@ import numpy as np
 from param import task_pts
 
 
-def pnp(frame,bbox,task):
+def pnp(frame,bbox, world_pts):
     img_pts=np.array(
     [(bbox.x, bbox.y),
     (bbox.x, bbox.y+bbox.h),
@@ -14,7 +14,7 @@ def pnp(frame,bbox,task):
         cv2.circle(frame, tuple(img_pts[i]), 3, [255,255,255], -1)
         cv2.putText(frame, str(i), tuple(img_pts[i]),cv2.FONT_HERSHEY_SIMPLEX, 0.5, [255,150,30], 2)
 
-    world_pts= task_pts[task]
+#    world_pts= task_pts
     #np.array(
 #    [(0,0,0),
 #    (0,10,0),
@@ -51,3 +51,4 @@ def pnp(frame,bbox,task):
     cv2.line(frame, p, px, (0,0,255), 2)
     cv2.imshow('prespective',frame)
     #out.write(frame)
+    return success, rotation_vector, translation_vector
