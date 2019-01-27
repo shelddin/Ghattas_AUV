@@ -7,7 +7,7 @@
 
 # Importing all neccessary libraries to be used
 import rospy # the official ROS library for python programming
-from ghattas_control.srv import hdg, hdgResponse # custom srv type defined in the same package here
+from ghattas_control_advanced.srv import hdg_adv, hdg_advResponse # custom srv type defined in the same package here
 from std_msgs.msg import Float64 # standard msg type from ROS
 from mavros_msgs.msg import OverrideRCIn # msg type for MAVROS package to send RC commands
 
@@ -56,7 +56,7 @@ class heading_accurate_movement (object):
         self.rc_publisher = rospy.Publisher('/mavros/rc/override', OverrideRCIn,
                                             queue_size=10)
         self.service_server_object = rospy.Service('/autonomous/heading_control',
-                                                   hdg, self.service_callback)
+                                                   hdg_adv, self.service_callback)
 
         self.right_rotation_speed = rospy.get_param("right_rotation_speed")
         self.left_rotation_speed = rospy.get_param("left_rotation_speed")
