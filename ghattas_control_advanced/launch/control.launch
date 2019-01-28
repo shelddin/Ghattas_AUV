@@ -4,4 +4,13 @@
   <node name="depth_control" pkg="ghattas_control_advanced" type="depth_control.py" output="screen"/>
   <node name="move" pkg="ghattas_control_advanced" type="move.py" output="screen"/>
   <node name="long_lat_control" pkg="ghattas_control_advanced" type="long_lat_control.py" output="screen"/>
+  <node name="stop_vehicle" pkg="ghattas_control_advanced" type="stop_vehicle.py" output="screen"/>
+  <node name="save_heading" pkg="ghattas_control_advanced" type="save_heading.py" output="screen"/>
+    <remap from="/fire_torpedo_state" to="/fire_torpedo_state_1" />
+    <remap from="/fire_torped" to="/fire_torped_1" />
+  <node name="fire_torpedo_1" pkg="ghattas_control_advanced" type="fire_torpedo.py" output="screen"/>
+    <remap from="/fire_torpedo_state" to="/fire_torpedo_state_2" />
+    <remap from="/fire_torped" to="/fire_torped_2" />
+  <node name="fire_torpedo_2" pkg="ghattas_control_advanced" type="fire_torpedo.py" output="screen"/>
+  <node name="drop_marker" pkg="ghattas_control_advanced" type="drop_marker.py" output="screen"/>
 </launch>
