@@ -17,6 +17,10 @@ echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
+# install additional ROS packages 
+sudo apt-get install ros-kientic-rosserial-arduino
+sudo apt-get install ros-kinetic-rosserial
+
 # Install opencv required deps
 sudo apt install htop
 sudo apt install python-pip
