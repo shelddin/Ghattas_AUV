@@ -1,0 +1,7 @@
+Simulation usage:
+
+1- install blender 2.8 beta or later
+2- run SITL with MavROS
+3- run in terminal /scripts/blender-ros-bridge.py
+4- open /3d_models/mission_stage.blend in blender 2.8
+5- from scripting tap hit Run Script button
