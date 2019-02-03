@@ -42,7 +42,7 @@ git clone https://github.com/opencv/opencv.git
 git clone https://github.com/opencv/opencv_contrib
 mkdir build
 cd build
-cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ../opencv
+cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules -D CMAKE_INSTALL_PREFIX=/opt/ros/kinetic/ ../opencv
 make
 sudo make install
 cd $HOME
