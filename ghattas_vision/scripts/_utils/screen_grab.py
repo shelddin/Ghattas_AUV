@@ -1,12 +1,8 @@
 import numpy as np
 import cv2
-from mss import mss
-import time
+import mss
 
-mon = {'top': 160, 'left': 160, 'width': 800, 'height': 600}
-
-sct = mss()
-
-def screen_grab():
-    img=np.array(sct.grab(mon))
-    return img
+monitor = {"top": 40, "left": 0, "width": 800, "height": 640}
+def screen_grab(area = monitor):
+	with mss.mss() as sct:
+		return np.array(sct.grab(area))

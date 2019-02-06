@@ -1,7 +1,7 @@
 import imutils
 import cv2
 import numpy as np
-import param
+import _param.processing_param
 
 
 def mask_info(mask,color,draw_q):

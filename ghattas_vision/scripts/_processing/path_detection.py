@@ -1,5 +1,5 @@
 import custom_math_func
-import param
+import _param.processing_param
 
 #preping the data for use
 def order(c):

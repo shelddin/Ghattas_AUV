@@ -1,8 +1,8 @@
 import cv2
 import rospy
 from ghattas_vision.msg import vision_target
-from perspective_solve import pnp
-from param import world_pts,colors
+from _processing.perspective_solve import pnp
+from _param.task_param import world_pts,colors
 
 
 class task_class(object):
@@ -32,14 +32,14 @@ class task_class(object):
     def _reset_msg(self):
         self._msg=vision_target()
 
-    def pnp(self, frame):
+    def _pnp(self, frame):
         success, rotation_vector, translation_vector = pnp(node._frame, self._bbox, self._world_pts)
 
-    def detected(self, frame, bbox):
+    def _detected(self, frame, bbox):
         self._bbox = bbox
         self._detection_state = self._tracker.init(node._frame, self._bbox)
 
-    def track(self, frame):
+    def _track(self, frame):
         if self._detection_state:
             self._detection_state, self._bbox = self._tracker.update(node._frame)
         else:

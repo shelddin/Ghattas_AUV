@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from param import task_pts
 
 
 def pnp(frame,bbox, world_pts):
@@ -14,13 +13,6 @@ def pnp(frame,bbox, world_pts):
         cv2.circle(frame, tuple(img_pts[i]), 3, [255,255,255], -1)
         cv2.putText(frame, str(i), tuple(img_pts[i]),cv2.FONT_HERSHEY_SIMPLEX, 0.5, [255,150,30], 2)
 
-#    world_pts= task_pts
-    #np.array(
-#    [(0,0,0),
-#    (0,10,0),
-#    (2.5,5,0),
-#    (5,0,0),
-#    (5,10,0)], dtype='double')
     size = (1920,1080)#frame.shape()
     focal_length = size[1]
     center = (size[1]/2, size[0]/2)
