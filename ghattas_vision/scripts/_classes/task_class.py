@@ -8,7 +8,7 @@ from _param.task_param import world_pts,colors
 class task_class(object):
     """docstring for task."""
     def __init__(self, name):
-        super(task, self).__init__()
+        super(task_class, self).__init__()
         rospy.init_node("vision_node")
         self._name = name
         self._publisher = rospy.Publisher('/vision/'+ self._name, vision_target, queue_size=10, latch=True)
@@ -33,14 +33,15 @@ class task_class(object):
         self._msg=vision_target()
 
     def _pnp(self, frame):
-        success, rotation_vector, translation_vector = pnp(node._frame, self._bbox, self._world_pts)
+        success, rotation_vector, translation_vector = pnp(frame, self._bbox, self._world_pts)
 
     def _detected(self, frame, bbox):
         self._bbox = bbox
-        self._detection_state = self._tracker.init(node._frame, self._bbox)
+        self._detection_state = self._tracker.init(frame, self._bbox)
+        print(self._detection_state)
 
     def _track(self, frame):
         if self._detection_state:
-            self._detection_state, self._bbox = self._tracker.update(node._frame)
+            self._detection_state, self._bbox = self._tracker.update(frame)
         else:
             pass

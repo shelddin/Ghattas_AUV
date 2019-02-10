@@ -1,6 +1,6 @@
 import cv2
 from mask_info import mask_info
-import _param.processing_param
+import _param.processing_param as param
 
 def color_mask(frame,color,draw_q=None):
     #initialize & optain parameters

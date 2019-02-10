@@ -10,10 +10,12 @@ centroids={}
 def cycle(vision, tasks):
     draw_q={'lines':[],'circle':[],'rectangle':[],'contour':[],'text':[]}
 
-    for task in tasks:
+    for task in {'gate','path','bouy','torpedo','dropper'}:
+        task = tasks[task]
         task._track(vision._frame)
         if task._detection_state:
-            vision._msg[task._name]=True
+            setattr(vision._msg,task._name, True)
+            print(vision._msg)
             R=roi(vision._frame,task._bbox)
             R= cv2.cvtColor(vision._frame, cv2.COLOR_BGR2HSV)
             for color in task._colors:

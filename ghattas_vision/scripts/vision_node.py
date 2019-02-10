@@ -4,7 +4,7 @@ import cv2
 
 from std_msgs.msg import String
 from ghattas_vision.msg import vision_target,vision_task_detection
-from _classes.task_calss import task_calss
+from _classes.task_class import task_class
 
 from imutils.video import VideoStream
 from cycle import cycle
@@ -31,7 +31,7 @@ class vision_node(object):
 
     def _read_frame(self):
         self._frame = self._stream.read()
-        vision._frame=cv2.resize(vision._frame, (0,0), fx=0.25, fy=0.25)
+        #vision._frame=cv2.resize(vision._frame, (0,0), fx=0.25, fy=0.25)
         self._drawn = self._frame.copy()
 
 
@@ -39,14 +39,17 @@ if __name__ == "__main__":
     vision = vision_node(0)
     tasks={}
     for task in {'gate','path','bouy','torpedo','dropper'}:
-        tasks[task] = task_calss(task)
+        tasks[task] = task_class(task)
+
+    area = {'top': 50, 'left': 0, 'width': 800, 'height': 600}
 
     while True:
         vision._read_frame()
         vision._reset_msg()
         #for simulation and to grab screen or an area of the screen uncomment below
-        area = {'top': 50, 'left': 0, 'width': 800, 'height': 600}
-        vision._frame = screen_grab(area)
+        #vision._frame = screen_grab(area)
+        #vision._frame = cv2.cvtColor(vision._frame, cv2.COLOR_BGRA2BGR)
+        #vision._drawn = vision._frame.copy()
 
         if vision._frame is None:
             print('video feed is lost :(')
@@ -59,11 +62,11 @@ if __name__ == "__main__":
         vision._publish()
 
         cv2.imshow('frame',vision._frame)
-        cv2.imshow('drawn',vision._drawn)
-        vision._fps.update()
+        #cv2.imshow('drawn',vision._drawn)
+        #vision._fps.update()
 
-        k = cv2.waitKey(0)
-        if k == 27:
+        k = cv2.waitKey(1)
+        if k == ord("q"):
             break
         else:
             manual_select(k, tasks, vision._frame)

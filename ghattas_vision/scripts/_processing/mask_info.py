@@ -1,7 +1,7 @@
 import imutils
 import cv2
 import numpy as np
-import _param.processing_param
+import _param.processing_param as param
 
 
 def mask_info(mask,color,draw_q):
@@ -9,39 +9,43 @@ def mask_info(mask,color,draw_q):
     min_size = param.contour_min_size(color)
     approx= []
     centroids= []
-
+    bbox=None
+    sort=False
     # find contours from the mask
-    contours = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours,hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # Don't worry about it, it fixes a bug, and yes it's copy paste but it works!!
-    contours = contours[0] if imutils.is_cv2() else contours[1]
-    contours = sorted(cnts, key=cv2.contourArea, reverse=True)
+    #contours = contours[0] if imutils.is_cv2() else contours[1]
 
     #process all contours
-    #for c in contours:
+    for c in contours:
         #check if contour fits the size thresholded
-        #if cv2.contourArea(c) < min_size:
-            #break
-    c=contours[0]
-    #find bounding box
-    x,y,w,h = cv2.boundingRect(c)
-    bbox={'x':x,'y':y,'w':w,'h':h}
-    approx.append(bbox)
+        if cv2.contourArea(c) < min_size:
+            sort=True
+            break
 
-    # compute the centroid of the contour & bounding box
-    bX = int(w/2)+x
-    bY = int(h/2)+y
+    if sort:
+        contours = sorted(contours, key=cv2.contourArea, reverse=True)
+        c=contours[0]
+        #find bounding box
+        x,y,w,h = cv2.boundingRect(c)
+        bbox=(x,y,w,h)
+        approx.append(bbox)
 
-    #add contour center to centers array
-    centroids.append((bX,bY))
+        # compute the centroid of the contour & bounding box
+        bX = int(w/2)+x
+        bY = int(h/2)+y
 
-    # add to draw que
-    if draw_q != None:
-        R={'p1':(x,y),'p2':(x+w,y+h),'color':(0,255,0)}
-        draw_q['rectangle'].append(R)
-        C3={'center':(bX,bY),'radius':2,'color':(0, 255, 0)}
-        draw_q['circle'].append(C3)
-        T={'text':color,'p':(bX - 20, bY - 20),'color':(255, 255, 255)}
-        draw_q['text'].append(T)
+        #add contour center to centers array
+        centroids.append((bX,bY))
+
+        # add to draw que
+        if draw_q != None:
+            R={'p1':(x,y),'p2':(x+w,y+h),'color':(0,255,0)}
+            draw_q['rectangle'].append(R)
+            C3={'center':(bX,bY),'radius':2,'color':(0, 255, 0)}
+            draw_q['circle'].append(C3)
+            T={'text':color,'p':(bX - 20, bY - 20),'color':(255, 255, 255)}
+            draw_q['text'].append(T)
 
 
     return centroids,bbox
