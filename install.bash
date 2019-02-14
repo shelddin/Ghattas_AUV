@@ -13,8 +13,8 @@ sudo apt upgrade
 sudo apt-get install ros-kinetic-desktop-full
 sudo rosdep init
 rosdep update
-echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-source ~/.bashrc
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc/
+source ~/.bashrc/
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 # install additional ROS packages 
@@ -45,15 +45,16 @@ cd build
 cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules -D CMAKE_INSTALL_PREFIX=/opt/ros/kinetic/ ../opencv
 make
 sudo make install
-cd $HOME
-read -p 'press enter to clear temp folders' $x
-yes | rm -r opencv-source
+#cd $HOME
+#read -p 'press enter to clear temp folders' $x
+#yes | rm -r opencv-source
 
 # creat, install needed deps and build workspace
-mkdir -p ~/ghattas/src
-cd ~ghattas
-git clone https://github.com/ShehabAldeen/Ghattas_AUV ~/ghattas/src
-cd ~/ghattas/src
+cd $HOME
+mkdir ~/ghattas/src/
+cd ~/ghattas/
+git clone https://github.com/ShehabAldeen/Ghattas_AUV/ ~/ghattas/src/
+cd ~/ghattas/src/
 git clone https://github.com/team-vigir/flexbe_behavior_engine.git
 git clone https://github.com/FlexBE/flexbe_app.git
 sudo apt-get install ros-kinetic-mavros ros-kinetic-mavros-extras
@@ -62,8 +63,8 @@ chmod +x ./install_geographiclib_datasets.sh
 sudo ./install_geographiclib_datasets.sh
 rm ./install_geographiclib_datasets.sh
 
-source /opt/ros/kinetic/setup.bash
-cd ~/ghattas
+#source /opt/ros/kinetic/setup.bash
+cd ~/ghattas/
 catkin_make
 source devel/setup.bash
 
