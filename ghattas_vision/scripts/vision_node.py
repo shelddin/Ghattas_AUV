@@ -44,12 +44,12 @@ if __name__ == "__main__":
     area = {'top': 50, 'left': 0, 'width': 800, 'height': 600}
 
     while True:
-        vision._read_frame()
+        #vision._read_frame()
         vision._reset_msg()
         #for simulation and to grab screen or an area of the screen uncomment below
-        #vision._frame = screen_grab(area)
-        #vision._frame = cv2.cvtColor(vision._frame, cv2.COLOR_BGRA2BGR)
-        #vision._drawn = vision._frame.copy()
+        vision._frame = screen_grab(area)
+        vision._frame = cv2.cvtColor(vision._frame, cv2.COLOR_BGRA2BGR)
+        vision._drawn = vision._frame.copy()
 
         if vision._frame is None:
             print('video feed is lost :(')
@@ -62,8 +62,8 @@ if __name__ == "__main__":
         vision._publish()
 
         cv2.imshow('frame',vision._frame)
-        #cv2.imshow('drawn',vision._drawn)
-        #vision._fps.update()
+        cv2.imshow('drawn',vision._drawn)
+        vision._fps.update()
 
         k = cv2.waitKey(1)
         if k == ord("q"):

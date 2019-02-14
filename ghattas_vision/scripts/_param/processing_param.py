@@ -11,8 +11,8 @@ color_thresh['yellow'] = np.array([[[20,100,100],[30,255,255]]])
 #size thresholds
 def contour_min_size(key):
     contour_min_size_dict={}
-    contour_min_size_dict.setdefault(key,5000)
-    contour_min_size_dict['black']=5000
+    contour_min_size_dict.setdefault(key,500)
+    contour_min_size_dict['black']=500
     return contour_min_size_dict[key]
 
 kernel_size=(5,5)

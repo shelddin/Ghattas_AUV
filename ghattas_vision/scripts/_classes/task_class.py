@@ -16,7 +16,7 @@ class task_class(object):
         self._msg = vision_target()
         self._bbox = None
         self._detection_state = False
-        self._tracker = cv2.TrackerMOSSE_create()
+        self._tracker = cv2.TrackerMedianFlow_create()
         self._colors = colors[self._name]
 
     def _pub(self):
