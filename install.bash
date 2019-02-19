@@ -58,6 +58,7 @@ cd ~/ghattas/src/
 git clone https://github.com/team-vigir/flexbe_behavior_engine.git
 git clone https://github.com/FlexBE/flexbe_app.git
 sudo apt-get install ros-kinetic-mavros ros-kinetic-mavros-extras
+sudo pip install --upgrade pymavlink MAVProxy
 wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
 chmod +x ./install_geographiclib_datasets.sh
 sudo ./install_geographiclib_datasets.sh
