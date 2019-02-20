@@ -6,6 +6,10 @@ sudo apt update
 sudo apt upgrade
 sudo apt install git
 
+# ROV networking packages
+sudo apt install openssh-server
+sudo apt install arp-scan 
+
 # ROS
 # add ROS ppa
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
