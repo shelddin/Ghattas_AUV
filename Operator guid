@@ -1,0 +1,42 @@
+Remote operation:
+#to access remote machine with X-server enabled:
+ssh -X <uname>@<remote ip> 
+# scan local network for available machines
+sudo arp-scan --localnet
+# get local pc ip
+ifconfig
+
+rosrun rosserial_python serial_node.py _port:=/dev/ttyACM1 _baud:=115200
+
+
+output add udpout:<laptop ip address>:14550
+
+
+
+
+
+sudo apt install screen
+
+
+
+"mavproxy.py" "--master" "tcp:192.168.2.100:5760" "--sitl" "192.168.2.100:5501" "--out" "192.168.2.100:14550" "--out" "192.168.2.100:14551" "--map" "--console"
+
+
+
+"mavproxy.py" "--master" "tcp:127.0.0.1:5760" "--sitl" "127.0.0.1:5501" "--out" "127.0.0.1:14550" "--out" "127.0.0.1:14551" "--map" "--console"
+
+
+Local operation:
+
+
+Simulation:
+cd ardupilot/ArduSub
+sim_vehicle.py -L RATBeach --out=udp:0.0.0.0:14550 --map --console
+output add udpout:<laptop ip address>:14550
+
+
+
+
+
+
+
