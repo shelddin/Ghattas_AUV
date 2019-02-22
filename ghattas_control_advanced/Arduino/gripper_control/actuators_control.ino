@@ -19,6 +19,7 @@ int dropper2_dir = 7;
 int dropper2_pwm = 8;
 int grip_dir = 9;
 int grip_pwm = 10;
+int power = 11;
 
 void torpedo1CB( const std_msgs::Empty& toggle_msg){
   digitalWrite(torpedo1_dir, HIGH);  
@@ -94,6 +95,10 @@ void setup()
   pinMode(dropper2_pwm,OUTPUT);
   pinMode(grip_dir,OUTPUT);
   pinMode(grip_pwm,OUTPUT);
+  pinMode(power, OUTPUT);
+  digitalWrite(power, HIGH);
+  delay(100);
+  digitalWrite(power, LOW);
   nh.initNode();
   nh.subscribe(torpedo1);
   nh.subscribe(torpedo2);
