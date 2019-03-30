@@ -1,0 +1,7 @@
+<launch>
+<node pkg="viso2_ros" type="stereo_odometer" name="stereo_odometer" output="screen">
+  <remap from="stereo" to="zed"/>
+  <remap from="image" to="image_rect"/>
+  <param name="base_link_frame_id" value="zed_camera"/>
+</node>
+</launch>
