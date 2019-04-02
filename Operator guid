@@ -1,42 +1,66 @@
 Remote operation:
-#to access remote machine with X-server enabled:
-ssh -X <uname>@<remote ip> 
+
 # scan local network for available machines
 sudo arp-scan --localnet
+
+#to access remote machine with X-server enabled
+ssh -X -C <user_name>@<onboard ip> 
+# example
+ssh -X -C ghattas@192.168.2.100 
+
 # get local pc ip
 ifconfig
 
-rosrun rosserial_python serial_node.py _port:=/dev/ttyACM1 _baud:=115200
+# start mavproxy with udp output to surface
+"mavproxy.py" "--master" "/dev/ttyACM<#>" "--out" "<surface ip address>:14550"
+# or add udp output after launching MavProxy
+output add udpout:<surface ip address>:14550
+# example
+"mavproxy.py" "--master" "/dev/ttyACM0" "--out" "192.168.2.100:14550"
+
+# start roscore onboard
+roscore
+ 
+# setup rosserial comunication with ros
+rosrun rosserial_python serial_node.py _port:=/dev/ttyACM<#>
+
+# control gripper
+rostopic pub /open_gripper std_msgs/Empty
+rostopic pub /close_gripper std_msgs/Empty
+
+# joystic control for gripper, torpedo and markdroper
+# communication between two ROS machines 
+
+# onboard machine
+export ROS_MASTER_URI=http://<onboard ip>:11311
+export ROS_IP=<surface ip>
+
+# surface machine
+export ROS_MASTER_URI=http://<master ip>:11311
+export ROS_IP=<surface ip>
+
+# joystick init
+sudo chmod a+rw /dev/input/js0
+rosparam set joy_node/dev "/dev/input/js0"
+rosrun joy joy_node
 
 
-output add udpout:<laptop ip address>:14550
 
-
-
-
-
-sudo apt install screen
-
-
-
-"mavproxy.py" "--master" "tcp:192.168.2.100:5760" "--sitl" "192.168.2.100:5501" "--out" "192.168.2.100:14550" "--out" "192.168.2.100:14551" "--map" "--console"
-
-
-
-"mavproxy.py" "--master" "tcp:127.0.0.1:5760" "--sitl" "127.0.0.1:5501" "--out" "127.0.0.1:14550" "--out" "127.0.0.1:14551" "--map" "--console"
-
-
+#########################################################################################################
 Local operation:
+TBA
 
 
+
+#########################################################################################################
 Simulation:
+
+# start the simulated vehicles
 cd ardupilot/ArduSub
 sim_vehicle.py -L RATBeach --out=udp:0.0.0.0:14550 --map --console
-output add udpout:<laptop ip address>:14550
 
+# start mavproxy
+"mavproxy.py" "--master" "tcp:127.0.0.1:5760" "--sitl" "127.0.0.1:5501" "--out" "127.0.0.1:14550" "--out" "127.0.0.1:14551" "--map" "--console"
 
-
-
-
-
-
+# to output simulation data to secondary machine run in mavproxy console
+output add udpout:<surface ip address>:14550
