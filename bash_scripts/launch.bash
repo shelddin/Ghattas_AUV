@@ -4,10 +4,9 @@
 sleep 30
 
 # launch code starts here
-# example
-cheese &
-PID=`jobs -p`
+cd ~/ghattas/
+source devel/setup.bash
 
-sleep 15
+#~/ghattas/src/bash_scripts/zed_launch.bash
 
-kill $PID
+nohup xterm -e roslaunch ghattas_launcher ghattas.launch

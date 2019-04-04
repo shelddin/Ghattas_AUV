@@ -1,0 +1,5 @@
+<launch>
+
+    <include file="$(find ghattas_vision)/launch/ghattas_vision.launch" />
+
+</launch>

@@ -8,7 +8,7 @@ sudo apt install git
 
 # ROV networking packages
 sudo apt install openssh-server
-sudo apt install arp-scan 
+sudo apt install arp-scan
 
 # ROS
 # add ROS ppa
@@ -27,7 +27,7 @@ echo "source devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-# install additional ROSserial 
+# install additional ROSserial
 sudo apt-get install ros-kientic-rosserial-arduino
 sudo apt-get install ros-kinetic-rosserial
 
@@ -38,7 +38,7 @@ mkdir ~/ghattas/src/
 cd ~/ghattas/
 git clone https://github.com/ShehabAldeen/Ghattas_AUV/ ~/ghattas/src/
 cd ~/ghattas/src/
-# clone flexbe behavior engine to work-space 
+# clone flexbe behavior engine to work-space
 git clone https://github.com/team-vigir/flexbe_behavior_engine.git
 git clone https://github.com/FlexBE/flexbe_app.git
 # install MavLink, MavROS & MavProxy
@@ -82,7 +82,7 @@ sudo make install
 #yes | rm -r opencv-source
 
 # setup automatic system startup (uncomment when installing on vehicle)
-#echo "nohup ~/ghattas/src/bash_scripts/launch.bash &" >> ~/.profile #.profile might change to ~/.bash_profile/~/.bash_login/~/.profile (the first one available following the order).
+#echo "nohup xterm -hold -e ~/ghattas/src/bash_scripts/launch.bash &" >> ~/.profile #.profile might change to ~/.bash_profile/~/.bash_login/~/.profile (the first one available following the order).
 
 # install optional user convenienc packages
 sudo add-apt-repository ppa:webupd8team/terminix
