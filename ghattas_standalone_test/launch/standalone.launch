@@ -1,4 +1,0 @@
-<launch>
- <include file = "$(find mavros_launcher)/launch/apm.launch"/>
- <include file = "$(find ghattas_control)/launch/control.launch"/>
-</launch>

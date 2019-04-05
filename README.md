@@ -1,19 +1,70 @@
 # Ghattas_AUV
-software system developed for autonomous underwater vehicle for RoboSub 2019 competition based on Robotics Operating System (ROS) and ArduSub firmware
+software system developed for autonomous underwater vehicle (AUV) for RoboSub 2019 competition based on Robotics Operating System (ROS) and ArduSub firmware
 
+## Description
 
-## Brief description of each package 
-
-Ghattas control:
+### ghattas_control:
 contains all the necessary movements for the vehicle using ROS services
+#### Subscribe
 
-mavros_launcher:
+#### Publish
+
+#### Service
+
+
+
+### mavros_launcher:
 here all necessary configuration files using YAML file type to configure the whole system and launch it in one launch file
+#### Subscribe
 
-ghattas_vision:
-To provide all vision functions to the vehicle and publish it on the required topics
+#### Publish
 
-ghattas_autonomoy_behaviors:
+#### Service
+
+
+
+### ghattas_vision:
+Provides image processing functionality, and video stream for other Packages.
+#### Subscribe
+*TBA*
+#### Publish
+**/zed_camera/left_img_rect** of message type [sensor_msgs/Image](https://docs.ros.org/kinetic/api/sensor_msgs/html/msg/Image.html) ***!! use this for monoculer operations***
+
+**/zed_camera/right_img_rect** of message type [sensor_msgs/Image](https://docs.ros.org/kinetic/api/sensor_msgs/html/msg/Image.html)
+
+**/vision/detection** of message type [ghattas_vision/vision_task_detection]
+
+**/vision/gate** of message type [geometry_msgs/Transform Message](https://docs.ros.org/api/geometry_msgs/html/msg/Transform.html)
+
+**/vision/bouy** of message type [geometry_msgs/Transform Message](https://docs.ros.org/api/geometry_msgs/html/msg/Transform.html)
+
+**/vision/path** of message type [geometry_msgs/Transform Message](https://docs.ros.org/api/geometry_msgs/html/msg/Transform.html)
+
+**/vision/torpedo** of message type [geometry_msgs/Transform Message](https://docs.ros.org/api/geometry_msgs/html/msg/Transform.html)
+
+**/vision/markdropper** of message type [geometry_msgs/Transform Message](https://docs.ros.org/api/geometry_msgs/html/msg/Transform.html)
+
+**/vision/gripper** of message type [geometry_msgs/Transform Message](https://docs.ros.org/api/geometry_msgs/html/msg/Transform.html)
+
+
+
+### ghattas_autonomoy_behaviors:
 all the states and behaviours for the FlexBe state-machine to be here
+#### Subscribe
 
-## how to use?
+#### Publish
+
+#### Service
+
+
+
+### ghattas_localization:
+#### Subscribe
+
+#### Publish
+
+#### Service
+
+
+
+## Used 3rd Party Packages:
