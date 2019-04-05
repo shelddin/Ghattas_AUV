@@ -82,7 +82,7 @@ sudo make install
 #yes | rm -r opencv-source
 
 # setup automatic system startup (uncomment when installing on vehicle)
-#echo "nohup xterm -hold -e ~/ghattas/src/bash_scripts/launch.bash &" >> ~/.profile #.profile might change to ~/.bash_profile/~/.bash_login/~/.profile (the first one available following the order).
+#echo "nohup ~/ghattas/src/bash_scripts/launch.bash &" >> ~/.profile #.profile might change to ~/.bash_profile/~/.bash_login/~/.profile (the first one available following the order).
 
 # install optional user convenienc packages
 sudo add-apt-repository ppa:webupd8team/terminix
