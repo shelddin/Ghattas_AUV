@@ -1,5 +1,6 @@
 <launch>
 
+    <include file = "$(find mavros_launcher)/launch/apm.launch"/>
     <include file="$(find ghattas_vision)/launch/ghattas_vision.launch" />
 
 </launch>

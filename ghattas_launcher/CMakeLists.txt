@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(ghattas_launcher)
 
 find_package(catkin REQUIRED COMPONENTS
-
+    
 )
 
 ## Specify additional locations of header files
