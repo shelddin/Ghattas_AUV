@@ -11,7 +11,12 @@ contains all the necessary movements for the vehicle using ROS services
 
 #### Service
 
-
+### ghattas_control (arduino):
+#### Subscribe
+**/arduino/launch_torpedo** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**/arduino/open_dropper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**/arduino/open_gripper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**/arduino/close_gripper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
 
 ### mavros_launcher:
 here all necessary configuration files using YAML file type to configure the whole system and launch it in one launch file

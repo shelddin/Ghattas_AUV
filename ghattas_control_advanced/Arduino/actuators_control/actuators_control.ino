@@ -4,25 +4,25 @@
 
 ros::NodeHandle  nh;
 
-int torpedo1_dir = 1;
-int torpedo1_pwm = 2;
-int dropper1_dir = 5;
-int dropper1_pwm = 6;
+int torpedo_dir = 1;
+int torpedo_pwm = 2;
+int dropper_dir = 5;
+int dropper_pwm = 6;
 int grip_dir = 9;
 int grip_pwm = 10;
 
-void torpedo1Cb( const std_msgs::Empty& toggle_msg){
-  digitalWrite(torpedo1_dir, HIGH);
-  analogWrite(torpedo1_pwm, 60);
+void torpedoCb( const std_msgs::Empty& toggle_msg){
+  digitalWrite(torpedo_dir, HIGH);
+  analogWrite(torpedo_pwm, 60);
   delay(500);
-  analogWrite(torpedo1_pwm, 0);
+  analogWrite(torpedo_pwm, 0);
 }
 
-void dropper1Cb( const std_msgs::Empty& toggle_msg){
-  digitalWrite(dropper1_dir, HIGH);
-  analogWrite(dropper1_pwm, 60);
+void dropperCb( const std_msgs::Empty& toggle_msg){
+  digitalWrite(dropper_dir, HIGH);
+  analogWrite(dropper_pwm, 60);
   delay(500);
-  analogWrite(dropper1_pwm, 0);
+  analogWrite(dropper_pwm, 0);
 }
 
 void gripOpenCb( const std_msgs::Empty& toggle_msg){
@@ -38,10 +38,10 @@ void gripCloseCb( const std_msgs::Empty& toggle_msg){
   analogWrite(grip_pwm, 0);
 }
 
-ros::Subscriber<std_msgs::Empty> torpedo1("launch_torpedo1", torpedo1Cb );
-ros::Subscriber<std_msgs::Empty> dropper1("open_dropper1", dropper1Cb );
-ros::Subscriber<std_msgs::Empty> gripOpen("open_gripper", gripOpenCb );
-ros::Subscriber<std_msgs::Empty> gripClose("close_gripper", gripCloseCb );
+ros::Subscriber<std_msgs::Empty> torpedo1("arduino/launch_torpedo", torpedoCb );
+ros::Subscriber<std_msgs::Empty> dropper1("arduino/open_dropper", dropperCb );
+ros::Subscriber<std_msgs::Empty> gripOpen("arduino/open_gripper", gripOpenCb );
+ros::Subscriber<std_msgs::Empty> gripClose("arduino/close_gripper", gripCloseCb );
 
 
 
@@ -51,18 +51,18 @@ ros::Publisher chatter("chatter", &str_msg);
 
 void setup()
 {
-  pinMode(torpedo1_dir,OUTPUT);
-  pinMode(torpedo1_pwm,OUTPUT);
+  pinMode(torpedo_dir,OUTPUT);
+  pinMode(torpedo_pwm,OUTPUT);
 
-  pinMode(dropper1_dir,OUTPUT);
-  pinMode(dropper1_pwm,OUTPUT);
+  pinMode(dropper_dir,OUTPUT);
+  pinMode(dropper_pwm,OUTPUT);
 
   pinMode(grip_dir,OUTPUT);
   pinMode(grip_pwm,OUTPUT);
 
   nh.initNode();
-  nh.subscribe(torpedo1);
-  nh.subscribe(dropper1);
+  nh.subscribe(torpedo);
+  nh.subscribe(dropper);
   nh.subscribe(gripOpen);
   nh.subscribe(gripClose);
 }
