@@ -14,8 +14,11 @@ contains all the necessary movements for the vehicle using ROS services
 ### ghattas_control (arduino):
 #### Subscribe
 **/arduino/launch_torpedo** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+
 **/arduino/open_dropper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+
 **/arduino/open_gripper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+
 **/arduino/close_gripper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
 
 ### mavros_launcher:
@@ -73,3 +76,20 @@ all the states and behaviours for the FlexBe state-machine to be here
 
 
 ## Used 3rd Party Packages:
+### darknet_ros [github](https://github.com/leggedrobotics/darknet_ros)
+Used to integrate Yolo object detection.
+#### Subscribe
+**/camera/rgb/image_raw** remaped to **/zed_camera/left_img_rect** of message type [sensor_msgs/Image](https://docs.ros.org/kinetic/api/sensor_msgs/html/msg/Image.html)
+
+#### Publish
+**/object_detector** ([std_msgs::Int8])
+
+Publishes the number of detected objects.
+
+**/bounding_boxes** ([darknet_ros_msgs::BoundingBoxes])
+
+Publishes an array of bounding boxes that gives information of the position and size of the bounding box in pixel coordinates.
+
+**detection_image** ([sensor_msgs::Image])
+
+Publishes an image of the detection image including the bounding boxes.

@@ -48,10 +48,12 @@ wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/inst
 chmod +x ./install_geographiclib_datasets.sh
 sudo ./install_geographiclib_datasets.sh
 rm ./install_geographiclib_datasets.sh
+# clone darknet_ros
+git clone --recursive https://github.com/leggedrobotics/darknet_ros
 # build work=space
 source /opt/ros/kinetic/setup.bash
 cd ~/ghattas/
-catkin_make
+catkin_make -DCMAKE_BUILD_TYPE=Release
 source devel/setup.bash
 
 # OPENCV
