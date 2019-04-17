@@ -53,11 +53,11 @@ class long_lat_control(object):
     def __init__(self): #constructor
 
         self._dist_tools = dist_tools() #object of the tools class to get the data in this class
-        self.rc_publisher = rospy.Publisher('/mavros/rc/override', OverrideRCIn,
-                                            queue_size=10)
+        self.control_msg_pub = rospy.Publisher('/autonomous/control_msg', OverrideRCIn,
+                                            queue_size=10, latch = True)
 
         # service object to start out service server
-        self.service_server_object = rospy.Service('/autonomous/sway_right_for',
+        self.service_server_object = rospy.Service('/autonomous/precise_movement',
                                                    dist, self.service_callback)
 
         # getting all the parameters from the parameter server and stor it in variables
@@ -93,13 +93,13 @@ class long_lat_control(object):
         # moving the vehicle untill it travel the required distance
         while (goal_distance != int(current_distance)):
             override_msg.channels[index[req.direction]] = speed[req.direction] #setting the speed to the correct RC channel
-            self.rc_publisher.publish(override_msg) # publishing the msg to start movement
+            self.control_msg_pub.publish(override_msg) # publishing the msg to start movement
             self.rate.sleep() # making sure to have the same publish rate
             location2 = self._dist_tools.get_coor() # update the current location
             current_distance = self.calc_distance(location1,location2) # calculate the distance
 
         override_msg.channels[index[req.direction]] = 1500 # set speed to 1500 (stop)
-        self.rc_publisher.publish(override_msg) # publish the stop msg
+        self.control_msg_pub.publish(override_msg) # publish the stop msg
         self.rate.sleep()
         location2 = self._dist_tools.get_coor() # update location
         rospy.loginfo("The vehicle travelled a distance of: %f successfully",self.calc_distance(location1,location2))
