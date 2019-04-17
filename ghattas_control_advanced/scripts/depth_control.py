@@ -32,8 +32,8 @@ class depth_control(object):
 
     def __init__(self):
         self.depth_tools_object = depth_tools()
-        self.rc_publisher = rospy.Publisher('/mavros/rc/override', OverrideRCIn,
-                                            queue_size=10)
+        self.control_msg_pub = rospy.Publisher('/autonomous/control_msg', OverrideRCIn,
+                                            queue_size=10, latch = True)
         self.service_server_object = rospy.Service('/autonomous/depth_control',
                                                    depth, self.service_callback)
 
@@ -56,11 +56,11 @@ class depth_control(object):
             current_depth = self.depth_tools_object.get_current_depth()
             override_msg = OverrideRCIn()
             override_msg.channels[2] = throttle_speed
-            self.rc_publisher.publish(override_msg)
+            self.control_msg_pub.publish(override_msg)
             self.rate.sleep()
             current_depth = self.depth_tools_object.get_current_depth()
         override_msg.channels[2] = 1500
-        self.rc_publisher.publish(override_msg)
+        self.control_msg_pub.publish(override_msg)
         self.rate.sleep()
         rospy.loginfo("The vehicle reached a depth of: %f successfully",self.depth_tools_object.get_current_depth())
         return True
