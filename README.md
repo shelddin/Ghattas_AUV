@@ -5,21 +5,69 @@ software system developed for autonomous underwater vehicle (AUV) for RoboSub 20
 
 ### ghattas_control:
 contains all the necessary movements for the vehicle using ROS services
-#### Subscribe
 
-#### Publish
+#### Nodes
 
-#### Service
+#### Move.py
 
-### ghattas_control (arduino):
-#### Subscribe
-**/arduino/launch_torpedo** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**Subscribe**
 
-**/arduino/open_dropper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**Publish**
 
-**/arduino/open_gripper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**Service**
 
-**/arduino/close_gripper** of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+**Parameters**
+
+#### Depth_control.py
+
+**Subscribe**
+
+**Publish**
+
+**Service**
+
+**Parameters**
+
+#### heading_control.py
+
+**Subscribe**
+
+**Publish**
+
+**Service**
+
+**Parameters**
+
+#### save_heading.py
+
+**Subscribe**
+
+**Publish**
+
+**Service**
+
+**Parameters**
+
+#### long_lat_control.py
+
+**Subscribe**
+
+**Publish**
+
+**Service**
+
+**Parameters**
+
+#### Arduino Node
+
+**Subscribe**
+/arduino/launch_torpedo of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+
+/arduino/open_dropper of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+
+/arduino/open_gripper of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+
+/arduino/close_gripper of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
 
 ### mavros_launcher:
 here all necessary configuration files using YAML file type to configure the whole system and launch it in one launch file
