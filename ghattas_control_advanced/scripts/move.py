@@ -30,8 +30,8 @@ from mavros_msgs.msg import OverrideRCIn
 class mover(object):
     def __init__(self): # constructor
         # publiser object to publish in '/mavros/rc/override' to move the vehicle
-        self.rc_publisher = rospy.Publisher('/mavros/rc/override', OverrideRCIn,
-                                            queue_size=10)
+        self.control_msg_pub = rospy.Publisher('/autonomous/control_msg', OverrideRCIn,
+                                            queue_size=1, latch = True)
         # service object to start out service server
         self.service_server_object = rospy.Service('/autonomous/move', move, self.service_callback)
 
@@ -62,9 +62,11 @@ class mover(object):
 
         override_msg = OverrideRCIn() #object of the msg type for the RC
         if req.direction in index: #error catcher to verify a valid direction is sent
+            override_msg.channels = [1500 for x in range(len(override_msg.channels))]
             override_msg.channels[index[req.direction]] = speed[req.direction]
-            self.rc_publisher.publish(override_msg)
+            self.control_msg_pub.publish(override_msg)
             self.rate.sleep()
+            rospy.sleep(1)
             rospy.loginfo("The vehicle started doing a %s",loginfo_msg[req.direction])
             return True
         else: #catching the error

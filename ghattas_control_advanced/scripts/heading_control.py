@@ -53,8 +53,8 @@ class heading_accurate_movement (object):
 
     def __init__(self):
         self.hdg_tools_object = hdg_tools()
-        self.rc_publisher = rospy.Publisher('/mavros/rc/override', OverrideRCIn,
-                                            queue_size=10)
+        self.control_msg_pub = rospy.Publisher('/autonomous/control_msg', OverrideRCIn,
+                                            queue_size=10, latch = True)
         self.service_server_object = rospy.Service('/autonomous/heading_control',
                                                    hdg_adv, self.service_callback)
 
@@ -71,7 +71,7 @@ class heading_accurate_movement (object):
         if req.mode == 'ht':
             goal_heading = req.desired_hdg
         elif req.mode == 'hts':
-            goal_heading = self.get_saved_heading()
+            goal_heading = self.hdg_tools_object.get_saved_heading()
         else:
             rospy.logerr("You have entered wrong mode")
 
@@ -84,11 +84,11 @@ class heading_accurate_movement (object):
             rospy.loginfo("Rotating to the right")
             while (int(current_heading) != int(goal_heading)):
                 override_msg.channels[3] = self.right_rotation_speed
-                self.rc_publisher.publish(override_msg)
+                self.control_msg_pub.publish(override_msg)
                 self.rate.sleep()
                 current_heading = self.hdg_tools_object.get_current_hdg()
             override_msg.channels[3] = 1500
-            self.rc_publisher.publish(override_msg)
+            self.control_msg_pub.publish(override_msg)
             self.rate.sleep()
             rospy.loginfo("Stopped rotating heading reached : %f",self.hdg_tools_object.get_current_hdg())
             return True
@@ -97,12 +97,12 @@ class heading_accurate_movement (object):
             rospy.loginfo("rotating to the left")
             while (int(current_heading) != int(goal_heading)):
                 override_msg.channels[3] = self.left_rotation_speed
-                self.rc_publisher.publish(override_msg)
+                self.control_msg_pub.publish(override_msg)
                 self.rate.sleep()
                 current_heading = self.hdg_tools_object.get_current_hdg()
 
             override_msg.channels[3] = 1500
-            self.rc_publisher.publish(override_msg)
+            self.control_msg_pub.publish(override_msg)
             self.rate.sleep()
             rospy.loginfo("Stopped rotating heading reached : %f",current_heading)
             return True

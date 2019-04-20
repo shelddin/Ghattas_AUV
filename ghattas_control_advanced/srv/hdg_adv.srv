@@ -2,4 +2,3 @@ string mode
 float64 desired_hdg
 ---
 bool success
-float64 current_hdg
