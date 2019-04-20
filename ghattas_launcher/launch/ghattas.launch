@@ -1,7 +1,11 @@
 <launch>
     <remap from="/camera/rgb/image_raw" to="/zed_camera/left_img_rect"/>
     <!--<include file = "$(find mavros_launcher)/launch/apm.launch"/>-->
-    <!--<include file="$(find ghattas_vision)/launch/ghattas_vision.launch" />-->
-    <include file="$(find darknet_ros)/launch/darknet_ros.launch"/>
+    <include file="$(find ghattas_vision)/launch/ghattas_vision.launch" />
+    <!--<include file="$(find darknet_ros)/launch/darknet_ros.launch"/>-->
+    <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
+    <arg name="behavior_name" default="Example Behavior" />
+    <node name="behavior_launcher" pkg="flexbe_widget" type="be_launcher" output="screen" args="-b '$(arg behavior_name)'" />
+
 
 </launch>
