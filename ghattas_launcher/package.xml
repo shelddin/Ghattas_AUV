@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ghattas_launcher</name>
+  <version>0.0.0</version>
+  <description>A universal ros launch for the AUV subseystems and packages</description>
+
+  <maintainer email="ahmad-aljabali@protonmail.com">Ahmad Aljabali</maintainer>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend> ghattas_vision</exec_depend>
+</package>
