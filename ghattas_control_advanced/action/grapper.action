@@ -1,8 +1,0 @@
-#goal definition
-bool hold
----
-#result definition
-bool grapped
----
-#feedback
-bool success
