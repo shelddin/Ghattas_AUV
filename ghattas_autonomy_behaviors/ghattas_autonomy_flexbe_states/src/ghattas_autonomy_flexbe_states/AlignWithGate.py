@@ -9,8 +9,24 @@ from std_srvs.srv import Empty, EmptyResponse, EmptyRequest
 
 class AlignWithGate(EventState):
 
+	'''
+	alining with the gate in z and x direction.
+	basic algorithm, first start aligning in z after that align in x.
+
+	-- topic        string      Topic where the mesured result is published.
+	-- tolerance	number		The acceptable error for operations (absolute error).
+	-- keys	        string[]	The key for the values to calculate the error.
+	-- referance    object      The referance ideal value.
+
+	#> output_value object		The calculated error.
+
+	<= unacceptable				Indicates an error that excedes tolerance.
+	<= success					Indicates no need for alignment check anymore.
+	'''
+
+
 	#To be developed according to the optimization notes
-	def __init__(self):
+	def __init__(self, tolerance):
 		# Declare outcomes, input_keys, and output_keys by calling the super constructor with the corresponding arguments.
 		super(AlignWithGate, self).__init__(outcomes = ['Aligned', 'CantSee'])
 		#To catch the sent srv_type in the state parameter
@@ -21,6 +37,12 @@ class AlignWithGate(EventState):
 		self.heave_up_client = ProxyServiceCaller({'/autonomous/heave_up': Empty}) # pass required clients as dict (topic: type)
 		self.stop_client = ProxyServiceCaller({'/autonomous/stop_vehicle': Empty}) # pass required clients as dict (topic: type)
 		self.vision_sub = ProxySubscriberCached({self._v_topic: vision_target})
+		self.width = rospy.get_param("frame_width")
+		self.height = rospy.get_param("frame_height")
+		self.width_h = (self.width/2) + tolerance
+		self.width_l = (self.width/2) - tolerance
+		self.height_h = (self.height/2) + tolerance
+		self.height_l = (self.height/2) - tolerance
 		self.inrange_flag = True
 		Logger.loginfo("initiated allign gate state")
 
@@ -39,7 +61,7 @@ class AlignWithGate(EventState):
 				Logger.loginfo("Aligned with gate")
 				return "Aligned"
 			else:
-				Logger.loginfo("cant find the gate")
+				Logger.logwarn("cant find the gate")
 				return "CantSee"
 
 
@@ -94,12 +116,12 @@ class AlignWithGate(EventState):
 	def allign_in_z(self):
 		self.update_subscriber()
 		Logger.loginfo("started aligning in Z ...")
-		while (390 > self.ValZ or self.ValZ > 590):
-			while (self.ValZ > 590):
+		while (self.height_l > self.ValZ or self.ValZ > self.height_h):
+			while (self.ValZ > self.height_h):
 				self.heave_up()
 				self.update_subscriber()
 			self.stop()
-			while (self.ValZ < 390):
+			while (self.ValZ < self.height_l):
 				self.heave_down()
 				self.update_subscriber()
 			self.stop()
@@ -109,14 +131,14 @@ class AlignWithGate(EventState):
 	def allign_in_x(self):
 		self.update_subscriber()
 		Logger.loginfo("started aligning in X ...")
-		while (910 > self.ValX or self.ValX > 1010):
+		while (self.width_l > self.ValX or self.ValX > self.width_h):
 			rospy.loginfo("X = %f...",self.ValX)
-			while (self.ValX > 1010):
+			while (self.ValX > self.width_h):
 				self.sway_right()
 				rospy.loginfo("X = %f...",self.ValX)
 				self.update_subscriber()
 			self.stop()
-			while (self.ValX < 910):
+			while (self.ValX < self.width_l):
 				self.sway_left()
 				self.update_subscriber()
 			self.stop()
