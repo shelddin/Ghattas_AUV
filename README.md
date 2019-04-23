@@ -6,68 +6,27 @@ software system developed for autonomous underwater vehicle (AUV) for RoboSub 20
 ### ghattas_control:
 contains all the necessary movements for the vehicle using ROS services
 
-#### Nodes
+#### Package Parameters:
+- left_rotation_speed(int, default: 1450)
+- right_rotation_speed(int, default: 1550)
+- up_speed(int, default: 1600)
+- down_speed(int, default: 1400)
+- forward_speed(int, default: 1800)
+- backward_speed(int, default: 1200)
+- left_sway_speed(int, default: 1200)
+- right_sway_speed(int, default: 1800)
+- pub_rate(int, default: 10)
 
-#### Move.py
-
-**Subscribe**
-
-**Publish**
-
-**Service**
-
-**Parameters**
-
-#### Depth_control.py
-
-**Subscribe**
-
-**Publish**
-
-**Service**
-
-**Parameters**
-
-#### heading_control.py
-
-**Subscribe**
-
-**Publish**
-
-**Service**
-
-**Parameters**
-
-#### save_heading.py
-
-**Subscribe**
-
-**Publish**
-
-**Service**
-
-**Parameters**
-
-#### long_lat_control.py
-
-**Subscribe**
-
-**Publish**
-
-**Service**
-
-**Parameters**
-
-#### Arduino Node
-
-**Subscribe**
-/arduino/launch_torpedo of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
-
-/arduino/open_dropper of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
-
-/arduino/open_gripper of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
-
-/arduino/close_gripper of message type [std_msgs/Empty](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)
+| node name  | publish  | subscribe  | service  |
+| :------------ | :------------ | :------------ | :------------ |
+|  control_maintainer.py | /mavros/rc/override ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`")) | /autonomous/control_msg ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`")) | -  |
+|  depth_control.py | /autonomous/control_msg ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`")) |  /mavros/global_position/rel_alt ([`std_msgs/Float64`](http://docs.ros.org/melodic/api/std_msgs/html/msg/Float64.html "`std_msgs/Float64`")) |   /autonomous/depth_control|
+|  heading_control.py | /autonomous/control_msg ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`"))  |  /mavros/global_position/compass_hdg ([`std_msgs/Float64`](http://docs.ros.org/melodic/api/std_msgs/html/msg/Float64.html "`std_msgs/Float64`")) /autonomous/saved_heading  ([`std_msgs/Float64`](http://docs.ros.org/melodic/api/std_msgs/html/msg/Float64.html "`std_msgs/Float64`")) | /autonomous/heading_control  |
+| long_lat_control  |/autonomous/control_msg ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`"))   |   |   |
+| move.py  | /autonomous/control_msg ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`"))  |  - | /autonomous/move  |
+|  save_heading.py | /autonomous/saved_heading    ([`std_msgs/Float64`](http://docs.ros.org/melodic/api/std_msgs/html/msg/Float64.html "`std_msgs/Float64`"))  |/mavros/global_position/compass_hdg ([`std_msgs/Float64`](http://docs.ros.org/melodic/api/std_msgs/html/msg/Float64.html "`std_msgs/Float64`"))| /autonomous/save_heading  |
+|  stop_vehicle.py |/autonomous/control_msg ([`mavros_msgs/OverrideRCIn`](http://docs.ros.org/api/mavros_msgs/html/msg/OverrideRCIn.html "`mavros_msgs/OverrideRCIn Message`"))   |  - |   /autonomous/stop_vehicle|
+|Arduino.ino |- |/arduino/launch_torpedo [`std_msgs/Empty`](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html) /arduino/open_dropper  [`std_msgs/Empty`](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html) /arduino/open_gripper [`std_msgs/Empty`](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html) /arduino/close_gripper  [`std_msgs/Empty`](https://docs.ros.org/lunar/api/std_msgs/html/msg/Empty.html)| -|
 
 ### mavros_launcher:
 here all necessary configuration files using YAML file type to configure the whole system and launch it in one launch file
