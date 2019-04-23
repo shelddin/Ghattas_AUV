@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   std_srvs
   message_generation
+  actionlib_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -58,25 +59,28 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
  add_service_files(
     FILES
-    hdg.srv
-    depth.srv
+    hdg_adv.srv
+    depth_adv.srv
+    move.srv
     dist.srv
 #   Service1.srv
 #   Service2.srv
-  )
+ )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
+#   DIRECTORY action
 #   FILES
 #   Action1.action
 #   Action2.action
 # )
 
 ## Generate added messages and services with any dependencies listed here
- generate_messages(
+generate_messages(
    DEPENDENCIES
    std_msgs
- )
+   actionlib_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -110,7 +114,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ghattas_control
-   CATKIN_DEPENDS roscpp rospy std_msgs std_srvs
+   CATKIN_DEPENDS roscpp rospy std_msgs std_srvs 
 #  DEPENDS system_lib
 )
 
