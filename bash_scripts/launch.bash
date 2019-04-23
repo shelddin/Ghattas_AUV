@@ -9,6 +9,6 @@ source devel/setup.bash
 
 #~/ghattas/src/bash_scripts/zed_launch.bash
 
-nohup xterm -e -hold roscore
-nohup xterm -e -hold rosrun rosserial_python serial_node.py _port:=/dev/ttyACM1
-nohup xterm -e -hold roslaunch ghattas_launcher ghattas.launch
+nohup xterm -hold -e roscore &
+nohup xterm -hold -e rosrun rosserial_python serial_node.py _port:=/dev/ttyACM1 &
+nohup xterm -hold -e roslaunch ghattas_launcher ghattas.launch &
