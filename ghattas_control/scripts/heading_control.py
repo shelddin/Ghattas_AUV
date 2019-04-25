@@ -58,13 +58,15 @@ class heading_accurate_movement (object):
         self.service_server_object = rospy.Service('/autonomous/heading_control',
                                                    hdg_adv, self.service_callback)
 
-        self.right_rotation_speed = rospy.get_param("right_rotation_speed")
-        self.left_rotation_speed = rospy.get_param("left_rotation_speed")
-        self.pub_rate = rospy.get_param("pub_rate")
-
+        update_params()
         self.rate = rospy.Rate (self.pub_rate)
 
         rospy.loginfo("Heading control service is ready")
+
+    def update_params(self):
+        self.right_rotation_speed = rospy.get_param("right_rotation_speed")
+        self.left_rotation_speed = rospy.get_param("left_rotation_speed")
+        self.pub_rate = rospy.get_param("pub_rate")
 
     def service_callback(self, req):
 
@@ -73,8 +75,8 @@ class heading_accurate_movement (object):
         elif req.mode == 'hts':
             goal_heading = self.hdg_tools_object.get_saved_heading()
         else:
-            rospy.logerr("You have entered wrong mode")
-
+            rospy.logerr("You have entered wrong mode for heading control service")
+        update_params()
         current_heading = self.hdg_tools_object.get_current_hdg()
         direction = self.shortest_path(goal_heading)
         override_msg = OverrideRCIn()

@@ -36,17 +36,19 @@ class depth_control(object):
                                             queue_size=10, latch = True)
         self.service_server_object = rospy.Service('/autonomous/depth_control',
                                                    depth, self.service_callback)
+        update_params()
+        self.rate = rospy.Rate (self.pub_rate)
+        rospy.loginfo("The depth control service is ready ")
 
+    def update_params(self):
         self.down_speed = rospy.get_param("down_speed")
         self.up_speed = rospy.get_param("up_speed")
         self.pub_rate = rospy.get_param("pub_rate")
-        self.rate = rospy.Rate (self.pub_rate)
-        rospy.loginfo("The depth control service is ready ")
 
     def service_callback(self, req):
         current_depth = self.depth_tools_object.get_current_depth()
         goal_depth = req.desired_depth
-
+        update_params()
         if goal_depth < current_depth: # means the direction is DOWN
             throttle_speed = self.down_speed
         elif goal_depth > current_depth: # means the direction is UP
