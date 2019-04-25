@@ -50,6 +50,26 @@ sudo ./install_geographiclib_datasets.sh
 rm ./install_geographiclib_datasets.sh
 # clone darknet_ros
 git clone --recursive https://github.com/leggedrobotics/darknet_ros
+
+# Install camera drivers
+# intel Realsense T256
+echo 'deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main' | sudo tee /etc/apt/sources.list.d/realsense-public.list
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key 6F3EFCDE
+sudo apt update
+sudo apt install librealsense2-dkms
+sudo apt install librealsense2-utils
+sudo apt install librealsense2-dev
+sudo apt install librealsense2-dbg
+cd ~ghattas/src
+git clone https://github.com/intel-ros/realsense
+
+# zed-mini
+mkdir ~/temp/
+cd ~/temp/
+wget "https://www.stereolabs.com/developers/downloads/ZED_SDK_Ubuntu16_v2.8.0.run"
+chmod +x ZED_SDK_*.run
+./ZED_SDK_*.run
+
 # build work=space
 source /opt/ros/kinetic/setup.bash
 cd ~/ghattas/
@@ -69,7 +89,7 @@ sudo apt install libffms2-4
 sudo apt install gstreamer1.0-plugins-base
 
 # clone and build latest stable opencv version
-cd $HOME
+cd $HOME/temp/
 mkdir opencv-source
 cd opencv-source
 git clone https://github.com/opencv/opencv.git

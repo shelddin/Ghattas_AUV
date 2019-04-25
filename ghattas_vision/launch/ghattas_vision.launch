@@ -1,6 +1,7 @@
 <launch>
-  <rosparam file="$(find ghattas_vision)/config/parameters.yaml" command="load"/>
-  <node pkg="ghattas_vision" type="vision_node.py"
-    name="ghattas_vision" output = "screen"></node>
+
+  <rosparam file="$(find ghattas_vision)/cfg/parameters.yaml" command="load"/>
+  <node pkg="ghattas_vision" type="vision_node.py" name="ghattas_vision" output = "screen"></node>
+  <node pkg="ghattas_vision" type="param_server.py" name="vision_param" output = "screen"></node>
 
 </launch>
