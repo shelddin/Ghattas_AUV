@@ -1,0 +1,28 @@
+<launch>
+  <rosparam file="$(find ghattas_control)/config/parameters.yaml" command="load"/>
+  <remap from="/left_rotation_speed" to="/control_reconfigure/left_rotation_speed" />
+  <remap from="/right_rotation_speed" to="/control_reconfigure/right_rotation_speed" />
+  <remap from="/up_speed" to="/control_reconfigure/up_speed" />
+  <remap from="/down_speed" to="/control_reconfigure/down_speed" />
+  <remap from="/forward_speed" to="/control_reconfigure/forward_speed" />
+  <remap from="/backward_speed" to="/control_reconfigure/backward_speed" />
+  <remap from="/left_sway_speed" to="/control_reconfigure/left_sway_speed" />
+  <remap from="/right_sway_speed" to="/control_reconfigure/right_sway_speed" />
+  <remap from="/pub_rate" to="/control_reconfigure/pub_rate" />
+
+  <node name="control_reconfigure" pkg="ghattas_configuration" type="control_server.py" output="screen"/>
+  <node name="heading_control" pkg="ghattas_control_advanced" type="heading_control.py" output="screen"/>
+  <node name="depth_control" pkg="ghattas_control_advanced" type="depth_control.py" output="screen"/>
+  <node name="control_maintainer" pkg="ghattas_control_advanced" type="control_maintainer.py" output="screen"/>
+  <node name="move" pkg="ghattas_control_advanced" type="move.py" output="screen"/>
+  <!-- <node name="long_lat_control" pkg="ghattas_control_advanced" type="long_lat_control.py" output="screen"/> -->
+  <node name="stop_vehicle" pkg="ghattas_control_advanced" type="stop_vehicle.py" output="screen"/>
+  <node name="save_heading" pkg="ghattas_control_advanced" type="save_heading.py" output="screen"/>
+    <remap from="/fire_torpedo_state" to="/fire_torpedo_state_1" />
+    <remap from="/fire_torped" to="/fire_torped_1" />
+  <node name="fire_torpedo_1" pkg="ghattas_control_advanced" type="fire_torpedo.py" output="screen"/>
+    <remap from="/fire_torpedo_state" to="/fire_torpedo_state_2" />
+    <remap from="/fire_torped" to="/fire_torped_2" />
+  <node name="fire_torpedo_2" pkg="ghattas_control_advanced" type="fire_torpedo.py" output="screen"/>
+  <node name="drop_marker" pkg="ghattas_control_advanced" type="drop_marker.py" output="screen"/>
+</launch>
