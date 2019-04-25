@@ -67,8 +67,8 @@ git clone https://github.com/intel-ros/realsense
 mkdir ~/temp/
 cd ~/temp/
 wget "https://www.stereolabs.com/developers/downloads/ZED_SDK_Ubuntu16_v2.8.0.run"
-chmod +x ZED_SDK_Linux_*.run
-./ZED_SDK_Linux_*.run
+chmod +x ZED_SDK_*.run
+./ZED_SDK_*.run
 
 # build work=space
 source /opt/ros/kinetic/setup.bash
