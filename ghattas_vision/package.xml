@@ -4,7 +4,7 @@
   <version>0.1.1</version>
   <description>The ghattas vison package</description>
 
-  <maintainer email="todo@todo.todo">Ahmad Aljabali</maintainer>
+  <maintainer email="ahmad-aljabali@protonmail.com">Ahmad Aljabali</maintainer>
 
   <license>GPLv3</license>
 
@@ -13,7 +13,9 @@
   <build_depend>rospy</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
   <exec_depend>message_runtime</exec_depend>
   <exec_depend>rospy</exec_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
 
 </package>
