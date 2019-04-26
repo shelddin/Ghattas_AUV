@@ -5,6 +5,7 @@ cd $HOME
 sudo apt update
 sudo apt upgrade
 sudo apt install git
+sudo apt install python-pip
 
 # ROV networking packages
 sudo apt install openssh-server
@@ -78,7 +79,6 @@ source devel/setup.bash
 
 # OPENCV
 # Install opencv required deps
-sudo apt install python-pip
 sudo pip2 install --upgrade pip
 sudo pip2 install imutils
 python -m pip install --upgrade --user mss
