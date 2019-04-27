@@ -10,7 +10,7 @@ from mavros_msgs.msg import OverrideRCIn
 class depth_tools(object):
     def __init__(self):
         self.init_hdg()
-        self.hdg_subscriber = rospy.Subscriber("/mavros/global_position/rel_alt",Float64,
+        self.depth_subscriber = rospy.Subscriber("/mavros/global_position/rel_alt",Float64,
                                                self.depth_callback,queue_size=1)
     def init_hdg(self):
         self._hdg = None
