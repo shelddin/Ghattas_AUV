@@ -24,14 +24,14 @@ class dist_tools (object):
         self.init_odom() #function call
 
         #subscriber for the topic resposible of the current position
-        self.hdg_subscriber = rospy.Subscriber("/mavros/local_position/odom",Odometry,
+        self.hdg_subscriber = rospy.Subscriber("/odom",Odometry,
                                                self.coordinates_callback,queue_size=1)
     # funciton to check whether topic is available?
     def init_odom(self):
         self._hdg = None
         while self._hdg is None:
             try:
-                self._hdg = rospy.wait_for_message("/mavros/local_position/odom",
+                self._hdg = rospy.wait_for_message("/odom",
                                                    Odometry, timeout=1)
             except:
                 rospy.loginfo("/odom topic is not ready yet, retrying")
