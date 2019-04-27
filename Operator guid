@@ -4,9 +4,9 @@ Remote operation:
 sudo arp-scan --localnet
 
 #to access remote machine with X-server enabled
-ssh -X -C <user_name>@<onboard ip> 
+ssh -X -C <user_name>@<onboard ip>
 # example
-ssh -X -C ghattas@192.168.2.100 
+ssh -X -C ghattas@192.168.2.100
 
 # get local pc ip
 ifconfig
@@ -20,7 +20,7 @@ output add udpout:<surface ip address>:14550
 
 # start roscore onboard
 roscore
- 
+
 # setup rosserial comunication with ros
 rosrun rosserial_python serial_node.py _port:=/dev/ttyACM<#>
 
@@ -29,7 +29,7 @@ rostopic pub /open_gripper std_msgs/Empty
 rostopic pub /close_gripper std_msgs/Empty
 
 # joystic control for gripper, torpedo and markdroper
-# communication between two ROS machines 
+# communication between two ROS machines
 
 # onboard machine
 export ROS_MASTER_URI=http://<onboard ip>:11311
@@ -44,6 +44,12 @@ sudo chmod a+rw /dev/input/js0
 rosparam set joy_node/dev "/dev/input/js0"
 rosrun joy joy_node
 
+# manipulating files through ssh
+scp -r /home/shehabeldin/ghattas/src/ghattas_xxx ghattas@192.168.2.100:/home/ghattas/ghattas/src
+
+
+# setting the stream rate
+rosservice call /mavros/set_stream_rate 0 10 1
 
 
 #########################################################################################################
