@@ -5,21 +5,26 @@ import inspect
 from flexbe_core import EventState, Logger
 from flexbe_core.proxy import ProxyPublisher
 
-class launch_torpedo(EventState):
+class Drop_Marker(EventState):
 	'''
-	state to launch the torpedo.
-	this will launch one torpedo no inputs needed.
+	state to drop a marker.
+	this will drop one marker no inputs needed.
+
+	-- topic        string      four optinos are available "gripper hold", "gripper release", "fire torpedo" and "drop marker".
 
 
-	<= launched 			the torpedo launched successfully.
+	<= dropped 			the marker dropeed successfully.
 
 
 	'''
 
-	def __init__(self):
-		super(Drop_Marker, self).__init__(outcomes = ['launched'])
+	def __init__(self, mechanism):
+		super(Drop_Marker, self).__init__(outcomes = ['dropped'])
 
-		self._topic = "arduino/launch_torpedo"
+		topics = {'gripper hold': "arduino/close_gripper" , 'gripper release': "arduino/open_gripper",
+					'fire torpedo': "arduino/launch_torpedo", 'drop marker': "/arduino/open_dropper"}
+
+		self._topic = topics[mechanism]
 		(msg_path, msg_topic, fn) = rostopic.get_topic_type(self._topic)
 		if msg_topic == self._topic:
 			msg_type = self._get_msg_from_path(msg_path)
