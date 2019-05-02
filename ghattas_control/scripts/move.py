@@ -55,7 +55,7 @@ class mover(object):
     def service_callback(self, req):
         # dictionary to store the index of channel to control the vehicle
         # as indicated on the ArduSub website
-        index = {'l':5,'r':5,'f':4,'b':4,'rl':3,'rr':3,'u':2,'d':2}
+        index = {'l':5,'r':5,'f':4,'b':4,'rl':3,'rr':3,'u':2,'d':2,'s':-1}
         # dictionary for easy access to the speeds values
         speed = {'l':self.left_sway_speed,'r':self.right_sway_speed,'f':self.forward_speed,
                     'b':self.backward_speed,'rl':self.left_rotation_speed,'rr':self.right_rotation_speed,
@@ -66,6 +66,11 @@ class mover(object):
         override_msg = OverrideRCIn() #object of the msg type for the RC
         if req.direction in index: #error catcher to verify a valid direction is sent
             override_msg.channels = [1500 for x in range(len(override_msg.channels))]
+            if req == 's':
+                self.control_msg_pub.publish(override_msg)
+                self.rate.sleep()
+                rospy.loginfo("vehicle stopped")
+                return True
             override_msg.channels[index[req.direction]] = speed[req.direction]
             self.control_msg_pub.publish(override_msg)
             self.rate.sleep()
