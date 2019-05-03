@@ -66,7 +66,7 @@ class mover(object):
         override_msg = OverrideRCIn() #object of the msg type for the RC
         if req.direction in index: #error catcher to verify a valid direction is sent
             override_msg.channels = [1500 for x in range(len(override_msg.channels))]
-            if req == 's':
+            if req.direction == 's':
                 self.control_msg_pub.publish(override_msg)
                 self.rate.sleep()
                 rospy.loginfo("vehicle stopped")

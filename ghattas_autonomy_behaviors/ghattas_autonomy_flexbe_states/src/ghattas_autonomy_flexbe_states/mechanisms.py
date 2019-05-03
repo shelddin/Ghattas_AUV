@@ -5,7 +5,7 @@ import inspect
 from flexbe_core import EventState, Logger
 from flexbe_core.proxy import ProxyPublisher
 
-class Drop_Marker(EventState):
+class mechanisms(EventState):
 	'''
 	state to drop a marker.
 	this will drop one marker no inputs needed.
@@ -18,8 +18,8 @@ class Drop_Marker(EventState):
 
 	'''
 
-	def __init__(self, mechanism):
-		super(Drop_Marker, self).__init__(outcomes = ['dropped'])
+	def __init__(self, mechanisms):
+		super(mechanisms, self).__init__(outcomes = ['dropped'])
 
 		topics = {'gripper hold': "arduino/close_gripper" , 'gripper release': "arduino/open_gripper",
 					'fire torpedo': "arduino/launch_torpedo", 'drop marker': "/arduino/open_dropper"}
