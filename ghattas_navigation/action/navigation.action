@@ -1,9 +1,0 @@
-string vehicle_reference_point # whether torpedo, gripper, dropper, or vehicle_center
-float64 x
-float64 y
-float64 z
-int32 variance
-float64 heading
----
-
----

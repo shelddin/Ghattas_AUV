@@ -1,0 +1,29 @@
+<launch>
+
+
+ <arg name="delta_x"   default="0.0"/>
+ <arg name="delta_y"   default="0.0"/>
+ <arg name="delta_yaw" default="0.0"/>
+
+
+  <node pkg="fake_localization" name="fake_localization" type="fake_localization" output="screen">
+    <remap from="base_pose_ground_truth" to="/odom"/>
+    <param name="odom_frame_id" value="odom" />
+    <param name="global_frame_id" value="map" />
+    <param name="base_frame_id" value="base_footprint" />
+    <param name="delta_x"   value="$(arg delta_x)"/>
+    <param name="delta_y"   value="$(arg delta_y)"/>
+    <param name="delta_yaw" value="$(arg delta_yaw)"/>
+  </node>
+
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find ghattas_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ghattas_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ghattas_navigation)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ghattas_navigation)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ghattas_navigation)/param/base_local_planner_params.yaml" command="load" />
+    <remap from="cmd_vel" to="mobile_base/commands/velocity"/>
+  </node>
+
+</launch>
