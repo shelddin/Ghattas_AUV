@@ -35,7 +35,7 @@ class mover(object):
         # service object to start out service server
         self.service_server_object = rospy.Service('/autonomous/move', move, self.service_callback)
 
-        update_params()
+        self.update_params()
         # getting all the parameters from the parameter server and stor it in variables
         self.rate = rospy.Rate (self.pub_rate)
         rospy.loginfo("The move service is ready ") # debug msg
@@ -50,19 +50,21 @@ class mover(object):
         self.right_rotation_speed = rospy.get_param("right_rotation_speed")
         self.up_speed = rospy.get_param("up_speed")
         self.down_speed = rospy.get_param("down_speed")
+        self.pitch_up_speed = rospy.get_param("pitch_up_speed")
+        self.pitch_down_speed = rospy.get_param("pitch_down_speed")
 
     # service callback the functionality to be done when the service is called
     def service_callback(self, req):
         # dictionary to store the index of channel to control the vehicle
         # as indicated on the ArduSub website
-        index = {'l':5,'r':5,'f':4,'b':4,'rl':3,'rr':3,'u':2,'d':2,'s':-1}
+        index = {'l':5,'r':5,'f':4,'b':4,'rl':3,'rr':3,'u':2,'d':2,'s':-1,'pu':0, 'pd':0}
         # dictionary for easy access to the speeds values
         speed = {'l':self.left_sway_speed,'r':self.right_sway_speed,'f':self.forward_speed,
                     'b':self.backward_speed,'rl':self.left_rotation_speed,'rr':self.right_rotation_speed,
-                    'u':self.up_speed,'d':self.down_speed}
+                    'u':self.up_speed,'d':self.down_speed,'pu':self.pitch_up_speed,'pd':self.pitch_down_speed}
         loginfo_msg = {'l':"lateral left",'r':"lateral right",'f':"forward",'b':"backward",'rl':"left roatation",
-                        'rr':"right rotation",'u':"depth up",'d':"depth down"}
-        update_params()
+                        'rr':"right rotation",'u':"depth up",'d':"depth down",'pu':"pitching up",'pd':"pitching down"}
+        self.update_params()
         override_msg = OverrideRCIn() #object of the msg type for the RC
         if req.direction in index: #error catcher to verify a valid direction is sent
             override_msg.channels = [1500 for x in range(len(override_msg.channels))]
@@ -74,7 +76,6 @@ class mover(object):
             override_msg.channels[index[req.direction]] = speed[req.direction]
             self.control_msg_pub.publish(override_msg)
             self.rate.sleep()
-            rospy.sleep(1)
             rospy.loginfo("The vehicle started doing a %s",loginfo_msg[req.direction])
             return True
         else: #catching the error

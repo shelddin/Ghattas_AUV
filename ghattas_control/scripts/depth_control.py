@@ -2,7 +2,7 @@
 import sys
 import rospy
 import time
-from ghattas_control.srv import depth, depthResponse
+from ghattas_control.srv import depth_adv, depth_advResponse
 from std_msgs.msg import Float64
 from mavros_msgs.msg import OverrideRCIn
 
@@ -35,7 +35,7 @@ class depth_control(object):
         self.control_msg_pub = rospy.Publisher('/autonomous/control_msg', OverrideRCIn,
                                             queue_size=10, latch = True)
         self.service_server_object = rospy.Service('/autonomous/depth_control',
-                                                   depth, self.service_callback)
+                                                   depth_adv, self.service_callback)
         update_params()
         self.rate = rospy.Rate (self.pub_rate)
         rospy.loginfo("The depth control service is ready ")
@@ -66,6 +66,7 @@ class depth_control(object):
         self.rate.sleep()
         rospy.loginfo("The vehicle reached a depth of: %f successfully",self.depth_tools_object.get_current_depth())
         return True
+
 if __name__ == '__main__':
     rospy.init_node('depth_control_serviceServer')
     object__ = depth_control()

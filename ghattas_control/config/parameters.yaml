@@ -8,4 +8,6 @@ forward_speed:        1800
 backward_speed:       1200
 left_sway_speed:      1200
 right_sway_speed:     1800
+pitch_up_speed:       1800
+pitch_down_speed:     1200
 pub_rate:             10 # publishin rate for all publishers
