@@ -200,9 +200,9 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(tf_publisher src/tf_publisher.cpp)
-target_link_libraries(tf_publisher ${catkin_LIBRARIES})
-add_dependencies(tf_publisher ghattas_navigation_generate_messages_cpp)
+#add_executable(tf_publisher src/tf_publisher.cpp)
+#target_link_libraries(tf_publisher ${catkin_LIBRARIES})
+#add_dependencies(tf_publisher ghattas_navigation_generate_messages_cpp)
 
 
 #add_executable(odometry_publisher src/odometry_publisher.cpp)
