@@ -11,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   message_generation
+  geometry_msgs
+  actionlib_msgs
+
 )
 
 ## System dependencies are found with CMake's conventions
@@ -68,10 +71,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
- #)
+ generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+   geometry_msgs
+   actionlib_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -105,7 +110,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ghattas_navigation
-  CATKIN_DEPENDS roscpp rospy
+  CATKIN_DEPENDS roscpp rospy geometry_msgs 
 #  DEPENDS system_lib
 )
 

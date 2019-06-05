@@ -18,6 +18,7 @@ class navigation(object):
         self.depth_client = rospy.ServiceProxy('/autonomous/depth_control',depth_adv)
         self.navigation_server = rospy.Service('/autonomous/navigation',vehicle_state, self.callback)
         self.odom_sub = rospy.Subscriber('/odom', Odometry, self.subcallback)
+        rospy.loginfo("navigation service is ready")
 
 
 
