@@ -4,12 +4,12 @@ import rospy
 from std_srvs.srv import Empty, EmptyResponse
 from ghattas_control.msg import vehicle_state
 from nav_msgs.msg import Odometry
+from std_msgs.msg import Float64
 
 
 class save_state(object):
 
     def __init__(self):
-        self.init_hdg()
         self.latch_publisher = rospy.Publisher('/autonomous/saved_vehicle_state',
                                                vehicle_state,queue_size=10,latch=True)
 
@@ -39,9 +39,9 @@ class save_state(object):
     def hdg_callback(self, msg):
         self._hdg = msg
     def pose_callback(self, msg):
-        self._x = msg.pose.pose.pose.position.x
-        self._y = msg.pose.pose.pose.position.y
-        self._z = msg.pose.pose.pose.position.z
+        self._x = msg.pose.pose.position.x
+        self._y = msg.pose.pose.position.y
+        self._z = msg.pose.pose.position.z
     #Since the topic wont exist for the first time it should be initialized with any value
 
     def save(self,req):

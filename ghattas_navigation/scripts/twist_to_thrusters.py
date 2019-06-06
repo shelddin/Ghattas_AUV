@@ -33,7 +33,7 @@ class twist_to_thrusters(object):
             self.override_msg.channels[4] = self.convert_range(msg.linear.x,'f')
 
         if msg.angular.z == 0:
-            self.override_msg.channerls[3] = 1500
+            self.override_msg.channels[3] = 1500
         elif msg.angular.z > 0 :
             self.override_msg.channels[3] = self.convert_range(msg.angular.z,'rr')
         elif msg.angular.z < 0 :

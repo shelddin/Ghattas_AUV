@@ -6,5 +6,5 @@
  <include file="$(find ghattas_navigation)/launch/move_base_launcher.launch"/>
  <rosparam command="load" file="$(find ghattas_navigation)/param/navigation.yaml" />
  <node pkg="ghattas_navigation" type="twist_to_thrusters.py"  name="twist_to_thrusters" output="screen"/>
- <node pkg="ghattas_navigation" type="navigation_node.py"  name="navigation_node" output="screen"/>
+ <!-- <node pkg="ghattas_navigation" type="navigation_node.py"  name="navigation_node" output="screen"/> -->
 </launch>
