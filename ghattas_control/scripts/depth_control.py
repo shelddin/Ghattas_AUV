@@ -36,7 +36,7 @@ class depth_control(object):
                                             queue_size=10, latch = True)
         self.service_server_object = rospy.Service('/autonomous/depth_control',
                                                    depth_adv, self.service_callback)
-        update_params()
+        self.update_params()
         self.rate = rospy.Rate (self.pub_rate)
         rospy.loginfo("The depth control service is ready ")
 
@@ -48,7 +48,8 @@ class depth_control(object):
     def service_callback(self, req):
         current_depth = self.depth_tools_object.get_current_depth()
         goal_depth = req.desired_depth
-        update_params()
+        override_msg = OverrideRCIn()
+        self.update_params()
         if goal_depth < current_depth: # means the direction is DOWN
             throttle_speed = self.down_speed
         elif goal_depth > current_depth: # means the direction is UP
@@ -56,7 +57,6 @@ class depth_control(object):
         rospy.loginfo("The vehicle started to heave_down to depth: %f",goal_depth)
         while(int(current_depth) != int(goal_depth)):
             current_depth = self.depth_tools_object.get_current_depth()
-            override_msg = OverrideRCIn()
             override_msg.channels[2] = throttle_speed
             self.control_msg_pub.publish(override_msg)
             self.rate.sleep()

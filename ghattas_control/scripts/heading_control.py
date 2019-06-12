@@ -58,7 +58,7 @@ class heading_accurate_movement (object):
         self.service_server_object = rospy.Service('/autonomous/heading_control',
                                                    hdg_adv, self.service_callback)
 
-        update_params()
+        self.update_params()
         self.rate = rospy.Rate (self.pub_rate)
 
         rospy.loginfo("Heading control service is ready")

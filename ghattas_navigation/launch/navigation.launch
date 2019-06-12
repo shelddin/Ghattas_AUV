@@ -1,10 +1,10 @@
 <launch>
 
- <!-- <include file="$(find ghattas_navigation)/launch/rs_t265.launch"/> -->
+ <include file="$(find ghattas_navigation)/launch/rs_t265.launch"/>
  <node name="map_server" pkg="map_server" type="map_server" args="$(find ghattas_navigation)/map/empty.yaml"/>
  <node name="odometry_publisher" pkg="ghattas_tf" type="odometry_publisher.py" output= "screen"/>
  <include file="$(find ghattas_navigation)/launch/move_base_launcher.launch"/>
  <rosparam command="load" file="$(find ghattas_navigation)/param/navigation.yaml" />
  <node pkg="ghattas_navigation" type="twist_to_thrusters.py"  name="twist_to_thrusters" output="screen"/>
-
+ <!-- <node pkg="ghattas_navigation" type="navigation_node.py"  name="navigation_node" output="screen"/> -->
 </launch>

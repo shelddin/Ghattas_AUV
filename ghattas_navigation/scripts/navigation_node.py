@@ -18,6 +18,7 @@ class navigation(object):
         self.depth_client = rospy.ServiceProxy('/autonomous/depth_control',depth_adv)
         self.navigation_server = rospy.Service('/autonomous/navigation',vehicle_state, self.callback)
         self.odom_sub = rospy.Subscriber('/odom', Odometry, self.subcallback)
+        rospy.loginfo("navigation service is ready")
 
 
 
@@ -30,13 +31,13 @@ class navigation(object):
             goal.target_pose.pose.position.x = req.pose.position.x + self.current_pose.pose.pose.position.x
             goal.target_pose.pose.position.y = req.pose.position.y + self.current_pose.pose.pose.position.y
             goal.target_pose.pose.orientation.w = 1.0
-            client.send_goal(goal)
-            wait = client.wait_for_result()
+            self.move_base_client.send_goal(goal)
+            wait = self.move_base_client.wait_for_result()
             if not wait:
                 rospy.logerr("Action server not available!")
                 rospy.signal_shutdown("Action server not available!")
             else:
-                return client.get_result()
+                return self.move_base_client.get_result()
 
         except rospy.ROSInterruptException:
             rospy.loginfo("Navigation test finished.")
