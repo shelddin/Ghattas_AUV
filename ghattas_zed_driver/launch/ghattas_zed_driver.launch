@@ -1,9 +1,9 @@
 <launch>
 
   <node pkg="ghattas_zed_driver" type="zed_driver_node.py" name="zed_driver_node" output = "screen"></node>
-<!--  <include ns="zed" file="$(find stereo_image_proc)/launch/stereo_image_proc.launch">
+  <include file="$(find stereo_image_proc)/launch/stereo_image_proc.launch">
     <arg name="manager" value="zed_manager"/>
+    <remap from="stereo" to="zed"/>
   </include>
--->
 
 </launch>

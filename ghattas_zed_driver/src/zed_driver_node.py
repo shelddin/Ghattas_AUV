@@ -13,7 +13,6 @@ def callback(data):
     world_pts = cv2.reprojectImageTo3D(disp_real, Q,handleMissingValues=True)
     world_pts_msg = bridge.cv2_to_imgmsg(world_pts, "passthrough")
     world_pts_pub.publish(world_pts_msg)
-    cv2.imshow("world_pts", world_pts)
     cv2.waitKey(1)
 
 rospy.init_node("zed_driver")
