@@ -1,10 +1,9 @@
 import cv2
-from mask_info import mask_info
 import _param.processing_param as param
 
 def color_mask(frame,colors):
     #initialize & optain parameters
-    kernel_size= param.kernel_size
+    kernel_size= (5,5)
     first=True
     mask=None
 
