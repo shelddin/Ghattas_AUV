@@ -16,7 +16,6 @@ from _processing.template_matcher import template_matcher
 def process():
     global color_availability,position
     color_availability = False
-    cv2.imshow('color', color)
     cv2.imshow('depth', depth)
     k = cv2.waitKey(1)
     if k==ord('s') or k==ord('t'):
