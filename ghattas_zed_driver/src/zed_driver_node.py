@@ -68,5 +68,5 @@ while True:
         fps.update()
 
         k=cv2.waitKey(1)
-        if k== 27:
+        if k== ord('q'):
             break

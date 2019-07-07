@@ -13,13 +13,13 @@ from _processing.path_detection import path_detection
 def path(hsv):
     mask = color_mask(hsv, ['orange'])
     centroids,bbox, contours = mask_info(mask)
-    cv2.drawContours(frame,contours,-1,(0,255,0),10)
+    cv2.drawContours(color,contours,-1,(0,255,0),10)
     if contours != None:
         path = path_detection(contours)
         print(path)
         if path != None:
-            cv2.line(frame,path[0][0],path[0][1],(255,0,0),10)
-            cv2.line(frame,path[1][0],path[1][1],(255,0,0),10)
+            cv2.line(color,path[0][0],path[0][1],(255,0,0),10)
+            cv2.line(color,path[1][0],path[1][1],(255,0,0),10)
 
     cv2.imshow('path mask', cv2.resize(mask, (0,0), fx=0.5, fy=0.5))
 
@@ -33,12 +33,12 @@ fps = FPS()
 
 while True:
 
-    _, frame = cap.read()
+    _, color = cap.read()
 
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(color, cv2.COLOR_BGR2HSV)
     path(hsv)
 
-    cv2.imshow('frame', cv2.resize(frame, (0,0), fx=0.5, fy=0.5))
+    cv2.imshow('color', cv2.resize(color, (0,0), fx=0.5, fy=0.5))
 
     fps.update()
 

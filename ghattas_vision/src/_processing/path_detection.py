@@ -20,7 +20,7 @@ def order(c):
     return ordered
 
 
-def path_detection(contours,draw_q=None):
+def path_detection(contours):
     deg_thresh=10
     path1,path2=((0,0),(0,0)),((0,0),(0,0))
     len1,len2=0,0
@@ -55,7 +55,9 @@ def path_detection(contours,draw_q=None):
     print(path2_angle)
     print(abs(path1_angle-path2_angle))
 
-    #if abs(path1_angle-path2_angle) < 55 and abs(path1_angle-path2_angle)>35:
-    return path1, path2
-    #else:
-        #return None
+    if abs(path1_angle-path2_angle) < 55 and abs(path1_angle-path2_angle)>35:
+        return path1, path2
+    if abs(path1_angle-path2_angle) < 145 and abs(path1_angle-path2_angle)>125:
+        return path1, path2
+    else:
+        return None
