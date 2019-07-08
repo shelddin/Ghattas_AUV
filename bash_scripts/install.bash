@@ -28,9 +28,11 @@ echo "source ~/ghattas/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-# install additional ROSserial
+# install additional ROS-packages
 sudo apt-get install ros-kientic-rosserial-arduino
 sudo apt-get install ros-kinetic-rosserial
+sudo apt install ros-kinetic-ddynamic-reconfigure
+sudo apt install ros-kinetic-ddynamic-reconfigure-python
 
 # creat, install needed deps and build workspace
 # clone ghattas repo to work-space
