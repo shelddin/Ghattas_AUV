@@ -39,6 +39,11 @@ def torpedo():
     cv2.rectangle(color, (template_bbox[0], template_bbox[1]), (template_bbox[0]+template_bbox[2], template_bbox[1]+template_bbox[3]), (0, 0, 255), 2)
     cv2.putText(color, 'torpedo:'+str(position), (template_bbox[0], template_bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,255), 2)
 
+def gate():
+    mask = color_mask(hsv, ['orange'])
+    cv2.imshow('gate mask')
+    position = get_position(depth, input_mask=mask)
+    print("gate position:" + str(position))
 
 
 
