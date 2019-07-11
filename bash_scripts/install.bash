@@ -109,6 +109,8 @@ sudo make install
 #echo "nohup ~/ghattas/src/bash_scripts/launch.bash &" >> ~/.profile #.profile might change to ~/.bash_profile/~/.bash_login/~/.profile (the first one available following the order).
 
 # install optional user convenienc packages
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo add-apt-repository ppa:webupd8team/terminix
 sudo apt update
 sudo apt install tilix
