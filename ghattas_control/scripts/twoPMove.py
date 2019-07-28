@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 """
 ## ------- code functionaliy -------------##
 to move the vehicle longitudally and laterally with an accurate movement with a pre-set distance value
@@ -67,8 +66,7 @@ class long_lat_control(object):
         self.backward_speed = rospy.get_param("backward_speed")
         self.left_sway_speed = rospy.get_param("left_sway_speed")
         self.right_sway_speed = rospy.get_param("right_sway_speed")
-
-        rospy.loginfo("The long_lat_control service is ready ")
+        rospy.loginfo("The twoPMove service is ready ")
 
     # function to calculate the distance between the start point and the current position
     def calc_distance(self,coor1,coor2):

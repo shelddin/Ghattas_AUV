@@ -28,7 +28,6 @@ class save_state(object):
         init_msg = vehicle_state()
         init_msg.depth = 0.0
         init_msg.heading = 0.0
-        init_msg.pitch = 0.0
         init_msg.position.x = 0.0
         init_msg.position.y = 0.0
         init_msg.position.z = 0.0

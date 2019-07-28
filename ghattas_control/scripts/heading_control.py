@@ -19,9 +19,6 @@ class hdg_tools(object):
         #Subscriber object to "/mavros/global_position/compass_hdg" which prvide the current heading of the vehicle
         self.hdg_subscriber = rospy.Subscriber("/mavros/global_position/compass_hdg",Float64,
                                                self.hdg_callback,queue_size=1)
-        #Subscriber object to "/autonomous/saved_heading" which contain the saved heading from previous mission
-        self.save_subscriber = rospy.Subscriber("/autonomous/saved_heading", Float64,
-                                                self.saved_callback,queue_size=10)
 
     # this function checks whether the topic is available or not!
     def init_hdg(self):
@@ -41,13 +38,6 @@ class hdg_tools(object):
     # getter function
     def get_current_hdg(self):
         return self._heading.data
-    # subscriber call back
-    def saved_callback(self, msg):
-        self._saved_heading = msg
-    # getter function
-    def get_saved_heading (self):
-        return self._saved_heading.data
-
 
 class heading_accurate_movement (object):
 
@@ -70,12 +60,11 @@ class heading_accurate_movement (object):
 
     def service_callback(self, req):
 
-        if req.mode == 'ht':
-            goal_heading = req.desired_hdg
-        elif req.mode == 'hts':
-            goal_heading = self.hdg_tools_object.get_saved_heading()
-        else:
-            rospy.logerr("You have entered wrong mode for heading control service")
+        # this is a condition to do nothing and maintain the current depth
+        if req.desired_hdg = 1000:
+            return True
+
+        goal_heading = req.desired_hdg
         update_params()
         current_heading = self.hdg_tools_object.get_current_hdg()
         direction = self.shortest_path(goal_heading)
@@ -117,7 +106,7 @@ class heading_accurate_movement (object):
         # To calculate the shortest path I divided the heading into 4 quarters and the
         #Algorithm as following
         if current_heading > goal_hdg:
-            if 1 < goal_hdg < 90:
+            if 0 < goal_hdg < 90:
                 return 'r'
             else:
                 return 'l'
@@ -127,10 +116,10 @@ class heading_accurate_movement (object):
             else:
                 return 'r'
         else:
-            rospy.logerr("The goal heading value is not correct")
-            rospy.logerr("The value should be between 0 - 360 or -1 ")
+            rospy.logerr("The goal heading value is  incorrect")
+            rospy.logerr("The value should be between 0 - 359")
 
 if __name__ == '__main__':
     rospy.init_node('heading_to_serviceServer')
     object__ = heading_accurate_movement()
-    rospy.spin()
+    rospy.sping()

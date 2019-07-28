@@ -46,6 +46,11 @@ class depth_control(object):
         self.pub_rate = rospy.get_param("pub_rate")
 
     def service_callback(self, req):
+
+        # this is a condition to do nothing and maintain the current depth
+        if req.desired_depth = 1000:
+            True
+
         current_depth = self.depth_tools_object.get_current_depth()
         goal_depth = req.desired_depth
         override_msg = OverrideRCIn()
