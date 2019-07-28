@@ -1,0 +1,5 @@
+<launch>
+
+  <node pkg="ghattas_zed_driver" type="zed_driver_node.py" name="zed_driver_node" output = "screen" launch-prefix="nohup xterm -hold -e"></node>
+
+</launch>

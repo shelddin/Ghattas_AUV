@@ -14,7 +14,7 @@ sudo apt install arp-scan
 # ROS
 # add ROS ppa
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 sudo apt update
 sudo apt upgrade
@@ -28,9 +28,11 @@ echo "source ~/ghattas/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-# install additional ROSserial
+# install additional ROS-packages
 sudo apt-get install ros-kientic-rosserial-arduino
 sudo apt-get install ros-kinetic-rosserial
+sudo apt install ros-kinetic-ddynamic-reconfigure
+sudo apt install ros-kinetic-ddynamic-reconfigure-python
 
 # creat, install needed deps and build workspace
 # clone ghattas repo to work-space
@@ -107,6 +109,8 @@ sudo make install
 #echo "nohup ~/ghattas/src/bash_scripts/launch.bash &" >> ~/.profile #.profile might change to ~/.bash_profile/~/.bash_login/~/.profile (the first one available following the order).
 
 # install optional user convenienc packages
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo add-apt-repository ppa:webupd8team/terminix
 sudo apt update
 sudo apt install tilix

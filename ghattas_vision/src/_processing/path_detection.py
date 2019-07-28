@@ -1,5 +1,4 @@
-import custom_math_func
-import _param.processing_param
+from _processing.custom_math_func import *
 
 #preping the data for use
 def order(c):
@@ -21,23 +20,23 @@ def order(c):
     return ordered
 
 
-def path_detection(contours,draw_q=None):
-    deg_thresh=param.parallel_deg_thresh
+def path_detection(contours):
+    deg_thresh=10
+    path1,path2=((0,0),(0,0)),((0,0),(0,0))
+    len1,len2=0,0
     #process all contours
     for c in contours:
         #initialize & optain variables
         c=order(c)
-        path1,path2=((0,0),(0,0)),((0,0),(0,0))
-        len1,len2=0,0
         #find parallel line pairs
         for l1 in range(len(c)):
-            deg1 = custom_math_func.deg(c[l1])
+            deg1 = deg(c[l1])
             for l2 in range(l1+1,len(c)):
-                deg2 = custom_math_func.deg(c[l2])
+                deg2 = deg(c[l2])
                 if deg1+deg_thresh > deg2 and deg2 > deg1-deg_thresh:
                     #find the path between parallel lines
-                    current_path=custom_math_func.avg_line(c[l1],c[l2])
-                    lenp=custom_math_func.length(current_path)
+                    current_path=avg_line(c[l1],c[l2])
+                    lenp=length(current_path)
                     # choose the two longest detected paths
                     if lenp > len2:
                         if lenp > len1:
@@ -49,9 +48,16 @@ def path_detection(contours,draw_q=None):
                             len2=lenp
                             path2=current_path
 
-        # add to draw que
-        if draw_q != None:
-            L1={'p1':path1[0],'p2':path1[1],'color':(255,0,100)}
-            draw_q['lines'].append(L1)
-            L2={'p1':path2[0],'p2':path2[1],'color':(255,0,100)}
-            draw_q['lines'].append(L2)
+
+    path1_angle = deg(path1)
+    path2_angle = deg(path2)
+    print(path1_angle)
+    print(path2_angle)
+    print(abs(path1_angle-path2_angle))
+
+    if abs(path1_angle-path2_angle) < 55 and abs(path1_angle-path2_angle)>35:
+        return path1, path2
+    if abs(path1_angle-path2_angle) < 145 and abs(path1_angle-path2_angle)>125:
+        return path1, path2
+    else:
+        return None
