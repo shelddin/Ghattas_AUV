@@ -12,10 +12,10 @@ class twist_to_thrusters(object):
         self.twist_sub = rospy.Subscriber('/mobile_base/commands/velocity', Twist,self.callback, queue_size =10)
         self.pub_rate = rospy.get_param("pub_rate")
         self.rate = rospy.Rate (self.pub_rate)
-        self.twist_forward_max = rospy.get_param("max_vel_x")
-        self.twist_forward_min = rospy.get_param("min_vel_x")
-        self.twist_turn_max = rospy.get_param("max_vel_theta")
-        self.twist_turn_min = rospy.get_param("min_in_place_vel_theta")
+        self.twist_forward_max = rospy.get_param("move_base/DWAPlannerROS/max_vel_x")
+        self.twist_forward_min = rospy.get_param("move_base/DWAPlannerROS/min_vel_x")
+        self.twist_turn_max = rospy.get_param("move_base/DWAPlannerROS/max_rot_vel")
+        self.twist_turn_min = rospy.get_param("move_base/DWAPlannerROS/min_rot_vel")
         self.thrust_forward_max = rospy.get_param("thrust_forward_max")
         self.thrust_forward_min = rospy.get_param("thrust_forward_min")
         self.thrust_turnr_max = rospy.get_param("thrust_turnr_max")
@@ -27,6 +27,7 @@ class twist_to_thrusters(object):
 
     def callback(self,msg):
         self.override_msg.channels = [1500 for x in range(len(self.override_msg.channels))]
+
         if msg.linear.x == 0:
             self.override_msg.channels[4] = 1500
         else:
@@ -35,9 +36,9 @@ class twist_to_thrusters(object):
         if msg.angular.z == 0:
             self.override_msg.channels[3] = 1500
         elif msg.angular.z > 0 :
-            self.override_msg.channels[3] = self.convert_range(msg.angular.z,'rr')
+            self.override_msg.channels[3] = self.convert_range(msg.angular.z,'rl')
         elif msg.angular.z < 0 :
-            self.override_msg.channels[3] = self.convert_range(abs(msg.angular.z),'rl')
+            self.override_msg.channels[3] = self.convert_range(abs(msg.angular.z),'rr')
 
         self.control_msg_pub.publish(self.override_msg)
         self.rate.sleep()

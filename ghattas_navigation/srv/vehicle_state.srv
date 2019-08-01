@@ -1,7 +1,7 @@
 
 
 float64 heading
-float64 pitch
-geometry_msgs/Pose pose
+float64 depth
+geometry_msgs/Point point
 ---
 bool success

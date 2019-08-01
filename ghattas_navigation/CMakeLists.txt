@@ -110,7 +110,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ghattas_navigation
-  CATKIN_DEPENDS roscpp rospy geometry_msgs 
+  CATKIN_DEPENDS roscpp rospy geometry_msgs
 #  DEPENDS system_lib
 )
 

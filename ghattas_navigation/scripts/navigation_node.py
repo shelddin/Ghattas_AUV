@@ -16,13 +16,15 @@ class navigation(object):
         self.move_base_client.wait_for_server()
         rospy.wait_for_service('/autonomous/depth_control')
         self.depth_client = rospy.ServiceProxy('/autonomous/depth_control',depth_adv)
+        rospy.wait_for_service('/autonomous/heading_control')
+        self.heading_client = rospy.SerivceProxy('/autonomous/heading_control', hdg_adv)
         self.navigation_server = rospy.Service('/autonomous/navigation',vehicle_state, self.callback)
         self.odom_sub = rospy.Subscriber('/odom', Odometry, self.subcallback)
         rospy.loginfo("navigation service is ready")
 
 
-
     def callback(self ,req):
+
         try:
             self.depth_client(req.pose.position.z + self.current_pose.pose.pose.position.z)
             goal = MoveBaseGoal()
@@ -42,10 +44,12 @@ class navigation(object):
         except rospy.ROSInterruptException:
             rospy.loginfo("Navigation test finished.")
 
+            self.heading_control(req.heading)
+
     def subcallback(self, msg):
         self.current_pose = msg
 
 if __name__=='__main__':
     rospy.init_node('navigation_node')
-    opject__ =navigation()
+    opject__ = navigation()
     rospy.spin()

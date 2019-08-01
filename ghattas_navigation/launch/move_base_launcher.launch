@@ -22,7 +22,7 @@
     <rosparam file="$(find ghattas_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find ghattas_navigation)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find ghattas_navigation)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find ghattas_navigation)/param/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find ghattas_navigation)/param/dwa_local_planner_params.yaml" command="load" />
     <remap from="cmd_vel" to="mobile_base/commands/velocity"/>
   </node>
 
